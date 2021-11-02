@@ -1,6 +1,6 @@
 {
   "build": {
-    "preview": {
+    "ETB-LOCAL": {
       "android": {
         "buildType": "apk"
       }
