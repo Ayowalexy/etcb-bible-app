@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, ScrollView, FlatList, useWindowDimensions, TouchableOpacity, Modal, Pressable } from 'react-native'
+import { View, Text, ActivityIndicator, FlatList, Dimensions, useWindowDimensions, TouchableOpacity, Modal, Pressable, Platform } from 'react-native'
 import EXODUS, { Exodus, Leviticus, Numbers } from './data';
 import LinearGradientComponent from '../../components/linear-gradient/linear-gradient.component';
 import { connect } from 'react-redux'
 import { setData } from '../../redux/books/books.actions';
 import Books from '../../../Books'
 import styles from './passage'
-import { VerseComponent } from './scroll-passage';
+import  VerseComponent  from './scroll-passage';
 import ShareVerse from '../../components/share/share-verse.component';
 import CopyVerse from '../../components/verse-copy/verse-copy.component';
 import PromptsModal from '../../components/modal/prompts-modal.component';
 import { setBookMark, resetBookmark } from '../../redux/bookmark/bookmark.action';
 import { setHighlight, resetHighlight } from '../../redux/highlight/highlight.actions';
-import Ionicons from '@expo/vector-icons/Ionicons'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 let bookmarks = []
 let verse;
@@ -22,16 +22,17 @@ let noteVerse;
 
 
 const RenderVerse = ({item, style, details,clearBook, fontColor, navigation, fontSize, EnglishName, HebrewName, clear, currentChapter, hightlight, bookmark}) =>{
-    const { width} = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
     const [modal, setModal] = useState(false)
     const [backgroundColor, setBackgroundColor] = useState('')
     const [number, setNumber] = useState(null)
 
-  
+  console.log(item.part)
     return (
         <View style={
 
             {
+               
             width,
             backgroundColor: style.setStyle.backgroundColor, 
             marginLeft: 0}}> 
@@ -50,7 +51,7 @@ const RenderVerse = ({item, style, details,clearBook, fontColor, navigation, fon
             }
             >
 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <View style={{width: 270,backgroundColor: 'white', height: 200, 
+    <View style={{width: 270,backgroundColor: 'white', height: Platform.OS === 'ios' ? 250 :  200, 
     borderColor: 'black', borderStyle: 'solid', borderWidth: 2}}>
         <View style={{flex: 1, marginLeft: 15, flexDirection: 'row', flexWrap: 'wrap', marginTop: -70}}>
             <TouchableOpacity
@@ -151,57 +152,108 @@ const RenderVerse = ({item, style, details,clearBook, fontColor, navigation, fon
                     >
                         <View style={{width: 20, height: 20, borderRadius: 20, backgroundColor: 'teal'}}></View>
                     </Pressable>
+                    <Pressable
+                         onPress={() => {
+                            setBackgroundColor('white')
+                            setNumber(num)
+                            setModal(false)
+                        }
+                    }
+                    >
+                        <View style={{width: 20, borderColor: 'black', borderWidth: 1, borderStyle: 'solid', height: 20, borderRadius: 20, backgroundColor: 'white'}}></View>
+                    </Pressable>
                 </View>
             </View>
             
         </View>
+        {
+                Platform.OS == 'ios' ?
+                <View style={{alignSelf: 'center'}}>
+
+                    <TouchableOpacity
+                        onPress={() => {
+                            setModal(false)
+                        }}
+                    >
+                        <Ionicons name='close' size={35} color='black' />
+                    </TouchableOpacity>
+                   
+                </View>
+                : null
+            }
     </View>
 </View>
 </Modal>
-           
+
+                <LinearGradientComponent 
+                    EnglishName={EnglishName} 
+                    HebrewName={HebrewName} 
+                    currentChapter={item.chapter}
+                    navigation={navigation}
+                />
+              
+                   
+                        
             {
-                item.chapter_verses.map((chap, idx) => (
-                    <TouchableOpacity
-                        style={{backgroundColor: chap.verse_Number === number ?  backgroundColor : ''}}
-                        key={chap.verse_Number}
-                        activeOpacity={0.6}
-                        //onPress={() => }
-
-                        onLongPress={() => {
-                            bookmarks.push({verse: chap.verse, 
-                                verse_number: chap.verse_Number,
-                                EnglishName: EnglishName,
-                                chapter: currentChapter
-                            })
-
-                            noteVerse = `${EnglishName} ${currentChapter}:${chap.verse_Number}`
-                            verse = `${EnglishName} ${currentChapter}:${chap.verse_Number}  ${chap.verse}`
+                
+                        item.chapter_verses.map((chap, idx) => {
                             
+
+                            return (
                             
-                            hightlight({
-                                EnglishName: EnglishName,
-                                currentChapter: currentChapter, 
-                                verse_number: chap.verse_Number,
-                                verse: chap.verse
-                            })
-                       
-                            num = chap.verse_Number
-                            setModal(!modal)
-                            }
-                        }
+                        // item.chapter_verses.map((chap, idx) => (
+                            <View>
+                            
+                            <TouchableOpacity
+                                style={{backgroundColor: chap.verse_Number === number ?  backgroundColor : ''}}
+                                key={chap.verse_Number}
+                                activeOpacity={0.6}
+                                //onPress={() => }
+
+                                onLongPress={() => {
+                                    bookmarks.push({verse: chap.verse, 
+                                        verse_number: chap.verse_Number,
+                                        EnglishName: EnglishName,
+                                        chapter: currentChapter
+                                    })
+
+                                    noteVerse = `${EnglishName} ${currentChapter}:${chap.verse_Number}`
+                                    verse = `${EnglishName} ${currentChapter}:${chap.verse_Number}  ${chap.verse}`
+                                    
+                                    
+                                    hightlight({
+                                        EnglishName: EnglishName,
+                                        currentChapter: currentChapter, 
+                                        verse_number: chap.verse_Number,
+                                        verse: chap.verse
+                                    })
+                            
+                                    num = chap.verse_Number
+                                    setModal(!modal)
+                                    }
+                                }
+                                
+                            >
+                                <VerseComponent 
+                                    verse_Number={chap.verse_Number}
+                                    verse={chap.verse}
+                                    fontSize={fontSize} 
+                                    fontColor={fontColor} 
+                                    heading={chap.header}
+                                    refer={chap.ref}
+                                    comment={chap.comment}
+                                    part={item.part? 'NT' : 'OT'}
+                                    
+                                    
+                                    // before_verse={chap.before_verse}
+                                    // GOD_SAID={chap.GOD_SAID}
+                                    // after_verse={chap.after_verse}
+                                />
                         
-                    >
-                        <VerseComponent 
-                            verse_Number={chap.verse_Number}
-                            verse={chap.verse}
-                            fontSize={fontSize} 
-                            fontColor={style.setStyle.color} 
                         
-                        />
-                   
-                   
-                   </TouchableOpacity>
-                ))
+                        </TouchableOpacity>
+                        </View>
+                        )}) 
             }
         </View>
     )
@@ -215,7 +267,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-    style: state.style
+    style: state.style,
+    fontColor: state.book.fontColor || 'black'
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RenderVerse)

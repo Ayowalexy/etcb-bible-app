@@ -1,11 +1,12 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, TouchableOpacity, useWindowDimensions, ScrollView } from 'react-native';
+import { Text, View, Button, Platform, TouchableOpacity, useWindowDimensions, ScrollView, StatusBar } from 'react-native';
 import DAILY_VERSES from './daily-verse';
 import PaymentScreen from '../components/payment-screen/paymentScreen';
 import { API_URL } from '../components/payment-screen/api-fetch';
 import StripePayout from '../components/stripe/stripe.component';
+import DaliyNotification from './daily-notification.component';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 
@@ -13,42 +14,42 @@ import { useStripe } from '@stripe/stripe-react-native';
 let num = 1;
 let match = '' || DAILY_VERSES[0];
 
- setInterval(function(){
-    match = DAILY_VERSES.find(verse => {
-      if(verse.id === num){
-        num = num + 1;
-        //  console.log(verse , 'Pushing')
-        return verse
-      }
-   })
- }, 50000)
+//  setInterval(function(){
+//     match = DAILY_VERSES.find(verse => {
+//       if(verse.id === num){
+//         num = num + 1;
+//         //  console.log(verse , 'Pushing')
+//         return verse
+//       }
+//    })
+//  }, 50000)
 
 
 //  setInterval(() => {
 //   console.log(match, 'matched')
 //  }, 6000)
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: false,
+//     shouldSetBadge: false,
+//   }),
+// });
 
 
-setInterval(() => {
-  Notifications.scheduleNotificationAsync({
-    content: {
-      title: `${match.title}`,
-      body: `${match.body}`
-    },
-    trigger: {
-      seconds: 10,
-      // repeats: true
-    }
-  })
-}, 60000);
+// setInterval(() => {
+//   Notifications.scheduleNotificationAsync({
+//     content: {
+//       title: `${match.title}`,
+//       body: `${match.body}`
+//     },
+//     trigger: {
+//       seconds: 10,
+//       // repeats: true
+//     }
+//   })
+// }, 60000);
 
 
 // const red = Notifications.cancelAllScheduledNotificationsAsync()
@@ -66,73 +67,17 @@ const Ap = () => {
   const [loading, setLoadng] = useState(false);
   const [clientSecret, setClientSecret] = useState('');
 
-  const fetchPaymentSheetParams = async () => {
-    const response = await fetch(`${API_URL}/payment-sheet`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const { paymentIntent, ephemeralKey, customer } = await response.json();
-    setClientSecret(paymentIntent);
-    return {
-      paymentIntent,
-      ephemeralKey,
-      customer,
-    };
-  };
 
-  const openPaymentSheet = async () => {
-    if (!clientSecret) {
-      return;
-    }
-    setLoadng(true);
-    const { error } = await presentPaymentSheet({
-      clientSecret,
-    });
-
-    if (error) {
-      Alert.alert(`Error code: ${error.code}`, error.message);
-    } else {
-      Alert.alert('Success', 'The payment was confirmed successfully');
-    }
-    setPaymentSheetEnabled(false);
-    setLoadng(false);
-  };
-
-  const initialisePaymentSheet = async () => {
-    const {
-      paymentIntent,
-      ephemeralKey,
-      customer,
-    } = await fetchPaymentSheetParams();
-
-    const { error } = await initPaymentSheet({
-      customerId: customer,
-      customerEphemeralKeySecret: ephemeralKey,
-      paymentIntentClientSecret: paymentIntent,
-      customFlow: false,
-      merchantDisplayName: 'Example Inc.',
-      style: 'alwaysDark',
-    });
-    if (!error) {
-      setPaymentSheetEnabled(true);
-    }
-  };
-
-  useEffect(() => {
-    // In your app’s checkout, make a network request to the backend and initialize PaymentSheet.
-    // To reduce loading time, make this request before the Checkout button is tapped, e.g. when the screen is loaded.
-    initialisePaymentSheet();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     
+    <ScrollView>
+
+      {/* <DaliyNotification /> */}
     <View
       style={{
         margin: 20,
         flex: 1,
+        marginTop: Platform.OS === 'ios' ? 80 : StatusBar.currentHeight
 
       }}>
       <Text style={{fontWeight: 'bold', fontSize: 17, textAlign: 'center'}}>Donate a Bible, Get A Free ETB App Subscription for 1yr</Text>
@@ -166,7 +111,7 @@ const Ap = () => {
       
 
         <TouchableOpacity>
-            <View style={{marginRight: 20, width: 40, height: 30, borderColor: 'black', borderStyle: 'solid', borderWidth: 1, flex: 0.1, justifyContent: 'center', alignItems: 'center'}}>
+            <View style={{marginRight: 20, width: 40, height: 40, borderColor: 'black', borderStyle: 'solid', borderWidth: 1, flex: 0.1, justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>{ amount }</Text>
             </View>
            
@@ -186,8 +131,6 @@ const Ap = () => {
 
       <View 
         style={{
-          position: 'absolute',
-          top: 100,
           width
         }}
       >
@@ -202,6 +145,7 @@ const Ap = () => {
 
       
     </View>
+    </ScrollView>
  
   );
 }

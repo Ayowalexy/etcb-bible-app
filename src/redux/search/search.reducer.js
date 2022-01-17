@@ -1,3 +1,6 @@
+import searchUtils from './search.utils';
+
+
 const INITIAL_STATE = {
     text: '',
     wordText: ''
@@ -12,6 +15,12 @@ const searchReducer = (state = INITIAL_STATE, action) => {
             }
         }
 
+        case 'DELETE_SEARCH': {
+            return {
+                ...state,
+                text: searchUtils(state.text, action.payload)
+            }
+        }
         default: 
             return state
     }

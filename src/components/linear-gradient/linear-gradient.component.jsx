@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Pressable } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Modal, ActivityIndicator, Pressable } from 'react-native'
 import styles from '../../screens/passage/passage'
 import  ModalRender from '../modal/modal.component'
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -65,6 +65,9 @@ const LinearGradientComponent = ({EnglishName, HebrewName, currentChapter, navig
                                     </View>
                                 </View>
                             </LinearGradient>
+                            <View>
+                                 {/* <ActivityIndicator size="large" color="#00ff00" /> */}
+                            </View>
             </View>
             
             

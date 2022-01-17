@@ -87,11 +87,14 @@ const StripePayout = ({amount}) => {
 
             />
             {
-                loading ? <ActivityIndicator size='small' color='black' /> :  <Button 
-                                                                                    onPress={handlePayPress}
-                                                                                    title={`Donate $${amount}`}
-                                                                                    disabled={loading}
-                                                                                />
+                loading ? <ActivityIndicator size='small' color='black' />
+                 : 
+                 <Button 
+                    color='black'
+                    onPress={handlePayPress}
+                    title={`Donate $${amount}`}
+                    disabled={loading}
+                />
             }
            
         </View>

@@ -15,7 +15,8 @@ import {
   Text,
   useColorScheme,
   View,
-  Image
+  Image,
+  Platform
 } from 'react-native';
 
 import {
@@ -54,6 +55,8 @@ import DisplayNotes from './src/components/display-notes/display-notes.component
 import History from './src/screens/history/history.component';
 import FlatListRender from './src/screens/passage/flat-list-render' 
 import PassageFlat from './src/screens/passage/passage-flat';
+import Introduction from './src/components/commentary.component.jsx/introduction.component';
+import Commentary from './src/components/commentary.component.jsx/commentary.component';
  console.disableYellowBox = true;
 
 
@@ -72,22 +75,25 @@ const App = () => {
                   
                   <Stack.Screen name='Home Page' component={HomeTabs} options={{headerShown: false}}/>
                   <Stack.Screen name='HomeScreen' component={HomeScreen} />
-                  <Stack.Screen name='Passage' component={PassageFlat} options={{headerShown: false}} />
-                  <Stack.Screen name='Locate' component={LocateTab} options={{headerShown: false}} />
-                  <Stack.Screen name='Chapters' component={ChapterRender} options={{headerShown: false}} />
-                  <Stack.Screen name='Verses' component={VerseRender} options={{headerShown: false}} />
-                  <Stack.Screen name='Search' component={SearchTab} options={{headerShown: false}} />
-                  <Stack.Screen name='Search Result' component={SearchResult} options={{headerShown: false}} />
+                  <Stack.Screen name='Passage' component={PassageFlat} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Locate' component={LocateTab} options={{headerShown: Platform.OS === 'ios'? true : false
+                }} />
+                  <Stack.Screen name='Chapters' component={ChapterRender} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Verses' component={VerseRender} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Search' component={SearchTab} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Search Result' component={SearchResult} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='modal' component={ModalRender} />
-                  <Stack.Screen name='Drawer' component={DrawerTab} options={{headerShown: true}} />
+                  <Stack.Screen name='Drawer' component={DrawerTab} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Premium' component={Premium} options={{headerShown: true}} />
                   <Stack.Screen name='Compare' component={Compare} options={{headerShown: true}} />
-                  <Stack.Screen name='Highlight' component={Highlights} options={{headerShown: false}} />
-                  <Stack.Screen name='Bookmarks' component={Bookmarks} options={{headerShown: false}} />
-                  <Stack.Screen name='Donate' component={Ap} options={{headerShown: false}} />
+                  <Stack.Screen name='Highlight' component={Highlights} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Bookmarks' component={Bookmarks} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Donate' component={Ap} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Notes' component={Notes} options={{headerShown: true}} />
-                  <Stack.Screen name='Display Notes' component={DisplayNotes} options={{headerShown: true}} />
-                  <Stack.Screen name='History' component={History} options={{headerShown: true}} />
+                  <Stack.Screen name='Display Notes' component={DisplayNotes}options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='History' component={History} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Introduction' component={Introduction} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Commentary' component={Commentary} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                  
               </Stack.Navigator>
             </NavigationContainer> 

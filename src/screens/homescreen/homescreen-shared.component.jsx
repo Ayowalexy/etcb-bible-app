@@ -17,7 +17,7 @@ import {
 
   const HomeScreenShared = ({navigation}) => (
       <View style={styles.container}>
-          <TouchableOpacity 
+          {/* <TouchableOpacity 
             activeOpacity={0.8}
             style={styles.box}
             onPress={() => navigation.navigate('Passage')}
@@ -29,22 +29,8 @@ import {
               </View>
               <View><Text style={styles.box_text}>Read</Text></View>
             </View>
-        </TouchableOpacity >
-        <TouchableOpacity 
-            activeOpacity={0.8}
-            style={styles.box}
-            onPress={() => navigation.navigate('Search')}
-        >
-            <View style={styles.box_inner}>
-                <View>
-                   <Ionicons name='documents' color='#171C24' size={35} />
-              </View>
-              <View>
-                <Text style={styles.box_text}>Search</Text>
-              </View>
-            </View>
-        </TouchableOpacity>
-        <TouchableOpacity 
+        </TouchableOpacity > */}
+         <TouchableOpacity 
           activeOpacity={0.8}
           style={styles.box}
           onPress={() => navigation.navigate('Locate')}  
@@ -60,6 +46,21 @@ import {
               </View>
             </View>
         </TouchableOpacity>
+        <TouchableOpacity 
+            activeOpacity={0.8}
+            style={styles.box}
+            onPress={() => navigation.navigate('Search')}
+        >
+            <View style={styles.box_inner}>
+                <View>
+                   <Ionicons name='documents' color='#171C24' size={35} />
+              </View>
+              <View>
+                <Text style={styles.box_text}>Search</Text>
+              </View>
+            </View>
+        </TouchableOpacity>
+       
         <TouchableOpacity 
             activeOpacity={0.8}
             style={styles.box}
@@ -92,15 +93,15 @@ import {
         </TouchableOpacity>
         <TouchableOpacity 
             activeOpacity={0.8}
-            style={styles.box}
+            style={[styles.box, { flexGrow: 0.8}]}
             onPress={() => navigation.navigate('Premium')}      
         >
-            <View style={styles.box_inner}>
+            <View style={[styles.box_inner, { alignSelf: 'center'}]}>
                 <View>
                     <Ionicons name='star' color='#171C24' size={35} />
               </View>
               <View>
-                  <Text style={styles.box_text}>Premium</Text>
+                  <Text style={[styles.box_text, { marginLeft: -20}]}>Premium</Text>
               </View>
             </View>
         </TouchableOpacity>

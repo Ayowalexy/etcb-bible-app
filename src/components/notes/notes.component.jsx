@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { setNote } from '../../redux/notes/notes.action';
 
 
-const Notes = ({route, setNote}) => {
+const Notes = ({route, setNote, navigation}) => {
 
     const { verse } = route.params
 
@@ -29,6 +29,10 @@ const Notes = ({route, setNote}) => {
                         text: verse,
                         notes: note
                     })
+
+                    if(note){
+                        navigation.navigate('Passage')
+                    }
                 }}
             >
                 <View style={styles.submit}>

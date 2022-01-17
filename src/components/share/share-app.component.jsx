@@ -35,8 +35,8 @@ const ShareApp = ({color}) => {
         <TouchableOpacity
             onPress={onShare}
         >
-        <View style={{marginBottom: 40, marginLeft: 15}}>
-            <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={{marginBottom: 10, marginLeft: 15}}>
+            <View style={{ flexDirection: 'row'}}>
                 <View>
                     <Ionicons name='share-social-outline' size={20} color={color} />
                 </View>

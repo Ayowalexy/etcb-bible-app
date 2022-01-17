@@ -1,4 +1,4 @@
-import { Text, View, Image, Button, ScrollView, TouchableOpacity, Pressable } from 'react-native'
+import { Text, View, Image, Button, ScrollView, TouchableOpacity, Platform, StatusBar, Pressable } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import styles from './profile.styles'
@@ -30,7 +30,7 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
     }
     return(
         <ScrollView style={styles.container}>
-            <View >
+            <View style={{marginTop: Platform.OS === 'ios'? 40 : StatusBar.currentHeight}}>
                 <View style={styles.user}>
                     {
                         image ?  <Image source={{uri: image}} style={styles.image} /> :
@@ -114,8 +114,8 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
 
                                 { 
                                     notes ? 
-                                    notes.map(element => (
-                                        <View style={{flex: 1, flexDirection: 'row'}}>
+                                    notes.map((element, idx) => (
+                                        <View key={idx} style={{flex: 1, flexDirection: 'row'}}>
                                             <Text>{element.text}</Text>
                                             <Text>{element.notes.slice(0, 40)}...</Text>
                                         </View>

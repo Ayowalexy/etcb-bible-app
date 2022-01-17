@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, useWindowDimensions } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, useWindowDimensions, Platform, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { setCurrentChapter } from '../../redux/chapter/chapter.actions';
 import { NewTestamentBooks } from '../../../Books';
@@ -12,7 +12,7 @@ const NewTestament = ({navigation, setCurrentChapterRender}) => {
     const { width, height } = useWindowDimensions()
     return(
         <ScrollView>
-           <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
+           <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
            {
                 NewTestamentBooks.map(book => {
                     return (

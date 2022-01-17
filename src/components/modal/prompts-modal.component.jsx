@@ -1,12 +1,11 @@
 import React, {useState} from 'react'
-import { View, Text, Modal, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, Modal, TouchableOpacity, Pressable, Platform } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { connect } from 'react-redux'
 import { setBookMark } from '../../redux/bookmark/bookmark.action';
 import { setHighlight } from '../../redux/highlight/highlight.actions';
 import ShareVerse from '../share/share-verse.component';
 import CopyVerse from '../verse-copy/verse-copy.component';
-
 
 
 // let bookmarks = []
@@ -121,6 +120,8 @@ const PromptsModal = ({modal, setModal, highlight, bookmark, bookmarks, verse}) 
                 </View>
                 
             </View>
+
+           
         </View>
     </View>
 </Modal>

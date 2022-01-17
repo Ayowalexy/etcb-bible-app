@@ -2,7 +2,8 @@ import React from 'react'
 import { View, Text, TouchableOpacity, ScrollView, useWindowDimensions, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { setCurrentChapter } from '../../redux/chapter/chapter.actions';
-import Books from '../../../Books';
+// import Books from '../../../Books';
+import { OldTestamenBooks } from '../../../Books';
 
 
 
@@ -13,12 +14,13 @@ const OldTestament = ({navigation, setCurrentChapterRender}) => {
  
     return(
         <ScrollView>
-           <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
+           <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
            {
-                Books.map(book => {
+                OldTestamenBooks.map(book => {
                     return (
                         <TouchableOpacity
                              key={book.id}
+                             
                             onPress={() => {
                                 navigation.navigate('Chapters')
                                 setCurrentChapterRender({

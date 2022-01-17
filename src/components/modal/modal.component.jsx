@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import { View, Text, Modal, Button } from 'react-native'
+import { View, Text, Modal, Button, TouchableOpacity, Platform } from 'react-native'
 import  Slider from '@ptomasroos/react-native-multi-slider'
 import { connect } from 'react-redux'
 import { setFontSize } from '../../redux/books/books.actions';
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 
 
@@ -40,8 +41,9 @@ const ModalRender = ({modal, setModal, fontSizeDispatch}) => {
                                             min={10}
                                             max={40}
                                             onValuesChange={(value) => setFontSize(...value)}
-                                           
+                                                                
                                         />
+                        
                                        
                                         <Button 
                                             title='SET'
@@ -52,6 +54,22 @@ const ModalRender = ({modal, setModal, fontSizeDispatch}) => {
                                             }
                                             }
                                         />
+
+                                    {
+                                        Platform.OS == 'ios' ?
+                                        <View style={{alignSelf: 'center', paddingTop: 30, marginBottom: -40}}>
+
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    setModal(false)
+                                                }}
+                                            >
+                                                <Ionicons name='close' size={35} color='black' />
+                                            </TouchableOpacity>
+                                        
+                                        </View>
+                                        : null
+                                    }
                                     </View>
                                 
                                 </View>

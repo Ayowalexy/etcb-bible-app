@@ -1,18 +1,19 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      //justifyContent: 'space-between',
+      //justifyContent: 'center',
       flexDirection: 'row',
       flexWrap: 'wrap',
       alignContent: 'center',
-      backgroundColor: '#171C24'
+      backgroundColor: '#171C24',
+      //alignItems: 'center'
     },
     box: {
-      marginLeft: 40,
-      marginRight: 10,
+      marginLeft: Platform.OS === 'ios' ? 50 : 40,
+      marginRight:  Platform.OS === 'ios' ? 40 : 10,
       marginBottom: 30,
       width: 110,
       height: 110,

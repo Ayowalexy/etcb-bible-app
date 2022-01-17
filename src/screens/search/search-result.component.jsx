@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Platform, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { LinearGradient } from 'expo-linear-gradient';
 import { setCurrentBook, setData } from '../../redux/books/books.actions';
@@ -10,7 +10,7 @@ import { setCurrentBook, setData } from '../../redux/books/books.actions';
 const SearchResult = ({result, navigation, setCurrentBook, data}) => {
     const { text, wordText } = result
     return(
-                <View>
+                <View style={{marginTop: Platform.OS === 'ios' ? 40 : StatusBar.currentHeight}}>
                     <LinearGradient
                         colors={['#171C24', '#fff']}
                         start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}

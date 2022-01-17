@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Button, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { setCurrentBook } from '../../redux/books/books.actions';
 import { setCurrentChapter } from '../../redux/chapter/chapter.actions';
 import { setCurrentVerse } from '../../redux/verse/verse.actions'
 import DATABASE from '../../../database';
+
 
 
 const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
@@ -30,14 +31,32 @@ const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
 
     
         return(
-            <View>
+            <ScrollView>
                 <View>
-                    <Text>{EnglishName}</Text>
-                    <ScrollView>
+                    <Text style={{padding: 20, fontSize: 20, fontWeight: 'bold'}}>{EnglishName}</Text>
+
+                    <Text
+                        style={{
+                            padding: 20,
+                        }}
+                    >Will you like to read the introductory notes on {EnglishName}? click the button</Text>
+                   <View 
+                    style={{
+                        width: 200,
+                        marginLeft: (Dimensions.get('window').width - 200 ) / 2
+
+                    }}
+                   >
+                    <Button
+                            color='black'
+                            title='INTRODUCTION'
+                            onPress={() => navigation.navigate('Introduction')}
+                        />
+                   </View>
+                    
                         <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
                             {
                             arr.map(chapter_Number => {
-
                                 return (
                                     
                                         <TouchableOpacity
@@ -71,10 +90,31 @@ const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
                                 )
                             }) 
                             }
+
                         </View>
-                    </ScrollView>
+
+                        <Text
+                        style={{
+                            padding: 20,
+                        }}
+                    >Click to read commentary on the book of {EnglishName}</Text>
+                   <View 
+                    style={{
+                        width: 200,
+                        marginLeft: (Dimensions.get('window').width - 200 ) / 2
+
+                    }}
+                   >
+                    <Button
+                            color='black'
+                            title='COMMENTARY'
+                            onPress={() => navigation.navigate('Commentary')}
+
+                        />
+                        </View>
+                        
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 

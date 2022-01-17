@@ -1,31 +1,41 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Pressable, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
+import { deleteText } from '../../redux/search/search.action';
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 
-const History = (search) => {
+const History = ({search, deleteText}) => {
 
-    const { text } = search.search
+    
+
+    const { text } = search
+
+    console.log(text)
+    //console.log(text[0].search, 'text')
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Text style={styles.headerText}>Your Search History</Text>
             {
-                text ?
+                text.length ?
                 text.map((value, idx) => (
-                    <TouchableOpacity style={styles.parent} key={idx}>
+                    <View style={styles.parent} key={idx}>
                         <View>
                             <Text style={styles.text}>{value.search}</Text>
                         </View>
                         <View>
-                            <Ionicons name='trash' size={20} color='black' />
+                            <Pressable
+                                // onPress={() => deleteText(value.search)}
+                            >
+                                <Ionicons name='trash' size={20} color='black' />
+                            </Pressable>   
                         </View>
                        
-                    </TouchableOpacity>
+                    </View>
                 )) : 
                 <Text style={styles.text}>No Search</Text>
             }
-        </View>
+        </ScrollView>
     )
 }
 
@@ -53,4 +63,8 @@ const mapStateToProps = state => ({
     search: state.history
 })
 
-export default connect(mapStateToProps)(History)
+const mapDispatchToProps = dispatch => ({
+    deleteText: text => dispatch(deleteText(text))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(History)

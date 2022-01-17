@@ -4,16 +4,19 @@ import DATABASE from '../../../database';
 import { connect } from 'react-redux'
 import { setCurrentBook, setCurrentBookChapter, setData } from '../../redux/books/books.actions';
 import Books from '../../../Books';
+import { BibleBooks } from '../../screens/passage/data';
 
 
 
-const Verses = ({book, navigation, currentBook, chapter, data}) => {
 
-    const { EnglishName, verse } = book
+const Verses = ({book, navigation, currentBook, data}) => {
 
-    console.log(chapter, 'chapter')
+
+    const { EnglishName, verse, chapter } = book
+
+    let currBook = BibleBooks[EnglishName].find(data => data.chapter === chapter)
     let arr = [];
-    for(let i = 1; i <= verse; i++){
+    for(let i = 1; i <= currBook.chapter_verses.length; i++){
         arr.push(i)
     }
 
@@ -27,7 +30,7 @@ const Verses = ({book, navigation, currentBook, chapter, data}) => {
             return(
             <View>
                 <View>
-                    <Text>{EnglishName}</Text>
+                    <Text style={{padding: 20, fontSize: 20, fontWeight: 'bold'}}>{EnglishName} : {chapter} </Text>
                     <ScrollView>
                         <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
                             {

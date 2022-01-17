@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Pressable,  Switch} from 'react-native'
+import { Text, View, TouchableOpacity, Pressable, StatusBar, Platform, Switch} from 'react-native'
 import React, {useState} from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import ModalRender from '../../components/modal/modal.component'
@@ -25,7 +25,8 @@ const Settings = ({setStyle, style}) => {
         <View style={{
             flex: 1,
             backgroundColor: backgroundColor ? backgroundColor : 'white',
-            color: style.color
+            color: style.color,
+            marginTop: Platform.OS === 'ios'? 40 : StatusBar.currentHeight
         }}>
             <Text style={{fontWeight: 'bold', fontSize: 30, padding: 10, color: style.setStyle.color}}>Settings</Text>
 
@@ -37,8 +38,8 @@ const Settings = ({setStyle, style}) => {
                 }
             }
             >
-                <View style={{marginBottom: 40, marginLeft: 15}}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{marginBottom: 10, marginLeft: 15}}>
+                    <View style={{ flexDirection: 'row'}}>
                         <View>
                             <Ionicons name='settings-outline' size={20} color={style.setStyle.color} />
                         </View>
@@ -56,8 +57,8 @@ const Settings = ({setStyle, style}) => {
                 }
             }
             >
-                <View style={{marginBottom: 40, marginLeft: 15}}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{marginBottom: 10, marginLeft: 15}}>
+                    <View style={{flexDirection: 'row'}}>
                         <View>
                             <Ionicons name='ios-color-wand-outline' size={20} color={style.setStyle.color} />
                         </View>
@@ -76,12 +77,12 @@ const Settings = ({setStyle, style}) => {
                 }
             }
             >
-                <View style={{marginBottom: 40, marginLeft: 15}}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={{marginBottom: 10, marginLeft: 15}}>
+                    <View style={{ flexDirection: 'row'}}>
                         <View>
                         <Ionicons name='text-outline' size={20} color={style.setStyle.color} />
                         </View>
-                        <View style={{flex: 1, flexDirection: 'row'}}>
+                        <View style={{ flexDirection: 'row'}}>
                          <View>
                             <Text style={{fontSize: 19, color: style.setStyle.color, fontWeight: 'bold', marginLeft: 10}}>Red Letter</Text>
                          </View>
@@ -117,9 +118,9 @@ const Settings = ({setStyle, style}) => {
                     }
                 }}
             >
-                <View style={{marginBottom: 40, marginLeft: 15}}>
+                <View style={{ marginLeft: 15}}>
                     
-                    <View style={{flex: 1, flexDirection: 'row'}}
+                    <View style={{ flexDirection: 'row'}}
                        
                     >
                         <View>

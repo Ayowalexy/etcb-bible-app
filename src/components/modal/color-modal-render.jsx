@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import { View, Text, Modal, Button, Pressable } from 'react-native'
+import { View, Text, Modal, Button, Pressable, Platform, TouchableOpacity } from 'react-native'
 import  Slider from '@ptomasroos/react-native-multi-slider'
 import { connect } from 'react-redux'
 import { setFontColor } from '../../redux/books/books.actions';
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 
 
@@ -133,6 +134,40 @@ const ColorModalRender = ({color, setColor, setFontColorDispatch}) => {
                                                     borderWidth: 2,
                                                     
                                                 }}></View>
+                                            </Pressable>
+                                            <Pressable 
+                                            onPress={() => {
+                                                setBorder('white')
+                                                
+                                            }}
+                                            >
+                                                <View style={{
+                                                    width: 40,
+                                                    height: 40,
+                                                    borderRadius: 20,
+                                                    backgroundColor: 'white',
+                                                    borderColor: border === 'white' ? 'yellow' : null,
+                                                    borderStyle: 'solid',
+                                                    borderWidth: 2,
+                                                    
+                                                }}></View>
+                                            </Pressable>
+                                            <Pressable>
+                                                <View>
+                                               
+                                                    <View style={{}}>
+
+                                                        <TouchableOpacity
+                                                            onPress={() => {
+                                                                setColor('')
+                                                            }}
+                                                        >
+                                                            <Ionicons name='close' size={35} color='black' />
+                                                        </TouchableOpacity>
+                                                    
+                                                    </View>
+                                                
+                                                </View>
                                             </Pressable>
                                         </View>
                                         <Button 
