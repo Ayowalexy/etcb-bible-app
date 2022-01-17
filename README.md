@@ -1,1 +1,0 @@
-# etcb-bible-app
