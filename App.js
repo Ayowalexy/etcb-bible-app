@@ -57,6 +57,8 @@ import FlatListRender from './src/screens/passage/flat-list-render'
 import PassageFlat from './src/screens/passage/passage-flat';
 import Introduction from './src/components/commentary.component.jsx/introduction.component';
 import Commentary from './src/components/commentary.component.jsx/commentary.component';
+import Login from './src/screens/login/login.component';
+import Prompt from './src/screens/prompt/prompt.component';
  console.disableYellowBox = true;
 
 
@@ -72,7 +74,7 @@ const App = () => {
           <PersistGate persistor={persistor}>
             <NavigationContainer>
               <Stack.Navigator mode='modal'>
-                  
+                  {/* <Stack.Screen name='Prompt Page' component={Prompt} options={{headerShown: false}}/> */}
                   <Stack.Screen name='Home Page' component={HomeTabs} options={{headerShown: false}}/>
                   <Stack.Screen name='HomeScreen' component={HomeScreen} />
                   <Stack.Screen name='Passage' component={PassageFlat} options={{headerShown: Platform.OS === 'ios'? true : false}} />
@@ -94,6 +96,7 @@ const App = () => {
                   <Stack.Screen name='History' component={History} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Introduction' component={Introduction} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Commentary' component={Commentary} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Login' component={Login} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                  
               </Stack.Navigator>
             </NavigationContainer> 

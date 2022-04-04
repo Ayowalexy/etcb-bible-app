@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -8,10 +8,12 @@ import CheckBox from '@react-native-community/checkbox';
 
 import DATABASE from '../../../database';
 import { setSearchHistory } from '../../redux/history/history.action';
-
+import { BibleBooks } from '../passage/data';
+import Books from '../../../Books';
 
 // let filters = ['Gospels', 'History', 'Old Testament', 'New Testament', 'Epistles']
 let filters = []
+let useBook = [];
 const Search = ({search, match, navigation, stateHistory}) => {
     const { text, wordText } = match
 
@@ -22,13 +24,31 @@ const Search = ({search, match, navigation, stateHistory}) => {
     const [history, setHistory] = useState(false)
     const [gospel, setGospel] = useState(false)
     const [epistles, setEpistles] = useState(false)
-    const [revelations, setRevelations] = useState(false)
+    const [literature, setLiterature] = useState(false)
 
    
     let result = []
 
+    // useEffect(() => {
+
+    //     console.log(filters)
+    //     if(filters.length){
+    //         filters.forEach(element => {
+    //             Books.find(book => {
+    //                 if(book.tags.includes(element)){
+
+    //                     useBook.push(BibleBooks[book.EnglishName])                        
+    //                 }
+    //             })
+    //         })
+    //     } 
+    // }, [filters.length])
+
+    console.log('==============================================================')
+    console.log(useBook.length)
     
     // console.log(filters, 'filter')
+
     
     return (
         <View style={styles.container}>
@@ -45,13 +65,31 @@ const Search = ({search, match, navigation, stateHistory}) => {
             </View>
 
             <View>
-                <Text style={styles.range}>Search range</Text>
+                <Text style={styles.range}>Search range(select one at least)</Text>
                 <View style={styles.range_query}>
                     <TouchableOpacity
                         onPress={() => {
                             setOldTestament(!oldTestament)
-                            !oldTestament ? filters.push('Old Testament') : filters.splice(filters.indexOf('Old Testament'), 1)
-                            
+                            filters.includes('Old Testament') ? filters.splice(filters.indexOf('Old Testament'), 1) : filters.push('Old Testament')
+                            if(filters.includes('Old Testament')){
+                                filters.forEach(element => {
+                                    Books.find(book => {
+                                        if(book.tags.includes(element)){
+                                            useBook.push({
+                                                tag: 'Old Testament',
+                                                EnglishName: book.EnglishName,
+                                                HebrewName: book.HebrewName,
+                                                chapters: BibleBooks[book.EnglishName]
+                                            })                        
+                                        }
+                                    })
+                                })
+                                console.log(useBook[0].tag)
+                            } else {
+                                useBook = []
+                            }
+
+                                                        
                         }}
                     >
                         <View style={[styles.range_container, {opacity: oldTestament ? 1 : 0.5}]}>
@@ -62,7 +100,25 @@ const Search = ({search, match, navigation, stateHistory}) => {
                     <TouchableOpacity
                         onPress={() => {
                             setNewTestament(!newTestament)
-                            !newTestament ? filters.push('New Testament') : filters.splice(filters.indexOf('New Testament'), 1)
+                            filters.includes('New Testament') ? filters.splice(filters.indexOf('New Testament'), 1) : filters.push('New Testament')
+                            if(filters.includes('New Testament')){
+                                filters.forEach(element => {
+                                    Books.find(book => {
+                                        if(book.tags.includes(element)){
+                                            useBook.push({
+                                                tag: 'New Testament',
+                                                EnglishName: book.EnglishName,
+                                                HebrewName: book.HebrewName,
+                                                chapters: BibleBooks[book.EnglishName]
+                                            })                        
+                                        }
+                                    })
+                                })
+                                console.log(useBook[0].tag)
+                            } else {
+                                useBook = []
+                            }
+                            
                             
                         }}
                     >
@@ -74,7 +130,24 @@ const Search = ({search, match, navigation, stateHistory}) => {
                     <TouchableOpacity
                         onPress={() => {
                             setHistory(!history)
-                            !history ? filters.push('History') : filters.splice(filters.indexOf('History'), 1)
+                            filters.includes('History') ? filters.splice(filters.indexOf('History'), 1) : filters.push('History')
+                            if(filters.includes('History')){
+                                filters.forEach(element => {
+                                    Books.find(book => {
+                                        if(book.tags.includes(element)){
+                                            useBook.push({
+                                                tag: 'History',
+                                                EnglishName: book.EnglishName,
+                                                HebrewName: book.HebrewName,
+                                                chapters: BibleBooks[book.EnglishName]
+                                            })                        
+                                        }
+                                    })
+                                })
+                                console.log(useBook[0].tag)
+                            } else {
+                                useBook = []
+                            }
                             
                         }}
                     >
@@ -86,7 +159,25 @@ const Search = ({search, match, navigation, stateHistory}) => {
                     <TouchableOpacity
                         onPress={() => {
                             setGospel(!gospel)
-                            !gospel ? filters.push('Gospels') : filters.splice(filters.indexOf('Gospels'), 1)
+                            filters.includes('Gospels') ? filters.splice(filters.indexOf('Gospels'), 1) : filters.push('Gospels')
+                            if(filters.includes('Gospels')){
+                                filters.forEach(element => {
+                                    Books.find(book => {
+                                        if(book.tags.includes(element)){
+                                            useBook.push({
+                                                tag: 'Gospels',
+                                                EnglishName: book.EnglishName,
+                                                HebrewName: book.HebrewName,
+                                                chapters: BibleBooks[book.EnglishName]
+                                            })                        
+                                        }
+                                    })
+                                })
+                                console.log(useBook[0].tag)
+                            } else {
+                                useBook = []
+                            }
+                            
                             
                         }}
                     >
@@ -99,7 +190,24 @@ const Search = ({search, match, navigation, stateHistory}) => {
                    <TouchableOpacity
                         onPress={() => {
                             setEpistles(!epistles)
-                            !epistles ? filters.push('Epistles') : filters.splice(filters.indexOf('Epistles'), 1)
+                            filters.includes('Epistles') ? filters.splice(filters.indexOf('Epistles'), 1) : filters.push('Epistles')
+                            if(filters.includes('Epistles')){
+                                filters.forEach(element => {
+                                    Books.find(book => {
+                                        if(book.tags.includes(element)){
+                                            useBook.push({
+                                                tag: 'Epistles',
+                                                EnglishName: book.EnglishName,
+                                                HebrewName: book.HebrewName,
+                                                chapters: BibleBooks[book.EnglishName]
+                                            })                        
+                                        }
+                                    })
+                                })
+                                console.log(useBook[0].tag)
+                            } else {
+                                useBook = []
+                            }
                            
                         }}
                     >
@@ -111,13 +219,30 @@ const Search = ({search, match, navigation, stateHistory}) => {
 
                     <TouchableOpacity
                         onPress={() => {
-                            setRevelations(!revelations)
-                            !revelations ? filters.push('Revelations') : filters.splice(filters.indexOf('Revelations'), 1)
+                            setLiterature(!literature)
+                            filters.includes('Literature') ? filters.splice(filters.indexOf('Literature'), 1) : filters.push('Literature')
+                            if(filters.includes('Literature')){
+                                filters.forEach(element => {
+                                    Books.find(book => {
+                                        if(book.tags.includes(element)){
+                                            useBook.push({
+                                                tag: 'Literature',
+                                                EnglishName: book.EnglishName,
+                                                HebrewName: book.HebrewName,
+                                                chapters: BibleBooks[book.EnglishName]
+                                            })                        
+                                        }
+                                    })
+                                })
+                                console.log(useBook[0].tag)
+                            } else {
+                                useBook = []
+                            }
                             
                         }}
                     >
-                        <View style={[styles.range_container, {opacity: revelations ? 1 : 0.5}]}>
-                            <Text style={styles.range_text}>Revelations</Text>
+                        <View style={[styles.range_container, {opacity: literature ? 1 : 0.5}]}>
+                            <Text style={styles.range_text}>Literature</Text>
                         </View>
 
 
@@ -129,8 +254,8 @@ const Search = ({search, match, navigation, stateHistory}) => {
                     <TouchableOpacity
                         onPress={() => {
                            
-                            function res(){
-                                DATABASE.map(chapter => (
+                            // function res(){
+                                useBook.map(chapter => (
                                     chapter.chapters.map(matchText => (
                                         matchText.chapter_verses.filter(matchVerse => {
                                              if(matchVerse.verse.includes(word) && filters.includes(chapter.tag)){
@@ -155,8 +280,8 @@ const Search = ({search, match, navigation, stateHistory}) => {
                                         })
                                     ))
                                 ))
-                            }
-                            res()
+                            // }
+                            // res()
                          
                             if (word){
                                 search({text: result, wordText: word})

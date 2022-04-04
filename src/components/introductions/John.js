@@ -1,0 +1,29 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native'
+
+
+const JohnIntroduction = () => (
+    <View>
+        <Text style={styles.paragraph}>
+        The Book of The Gospel According to John or Yochanans, also known as The Gospel of John is the fourth book of the New Testament.         </Text>
+        <Text style={styles.paragraph}>
+        John was one of the two sons of Zebedee who were of the Twelve Disciples or Apostles of The LORD Yeshua The Messiah (“Jesus Christ” in English, and “Iēsous Christos” in Greek/Latin).  His brother was James.          </Text>
+        <Text style={styles.paragraph}>
+        John was formerly a disciple of John the Baptist and then became a disciple of Yeshua The Messiah after His baptism. John was a beloved disciple, whom The LORD loved.  John along with Peter and James were particularly very close to The LORD. And the LORD took them to where other Disciples did not go.This includes the Mount of Transfiguration (Matthew 17:1, Mark 9:2, Luke 9:28), and raising of Jairus daughter from the dead, (Luke 8:51-54).          </Text>
+         <Text style={styles.paragraph}>
+         John had a very intimate firsthand knowledge and eye witness of The LORD, His works, death, and resurrection. Through the Book of The Gospel of John, Apostle John showed Yeshua as The Messiah, who was The Word of God and was with God from the beginning. He came in flesh, as the begotten of God, to be the ransom for the sins of the world.          </Text>
+         <Text style={styles.paragraph}>
+         John was the last surviving of the Apostles. The others had either died or were martyred. He was sent on exile by the Roman Emperor Domitian to the Greek island of Patmos in the Aegean Sea. While there he received and wrote The Book of Revelation. He also wrote the Epistles of 1 John, 2 John and 3 John.         </Text>
+         <Text style={styles.paragraph}>
+         The Book of The Gospel of John is believed to have been written around 90AD. However, it may have been written well before the destruction of Jerusalem in 70AD.                  </Text>
+
+    </View>
+)
+
+
+
+const styles = StyleSheet.create({
+   paragraph: {
+       paddingLeft: 20
+   }
+})

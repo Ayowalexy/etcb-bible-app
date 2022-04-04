@@ -1,0 +1,33 @@
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native'
+
+
+const Corithians_2 = () => (
+    <View>
+        <Text>[Commentary About Spiritual Warfare And Authority]</Text>
+        <Text style={styles.paragraph}>
+        Satan, the god of this world has already been defeated and judged. Believers have power over Satan, but it does not include binding him. The time for Satan to be bound is not here yet and believers should not try to bind him. For now, Satan cannot be bound, and will not be bound, until the start of the millennium reign, (Revelation 20:1-3). During the millennium, he will be kept in hell, a spiritual prison, for one thousand years. And later on, he will be thrown into lake of fire, (Revelation 20:7-10). That is after his job of deception is completed.  Until then, Satan still has a job to do. The choice of good and evil, obedience and disobedience to God, both exist to the end. And every human being, from Adam to the end, must be presented with these alternatives and must make a choice between the two. Satan's job is to deceive by presenting the evil alternative alongside the good, for everyone to make a choice.            </Text>
+        <Text style={styles.paragraph}>
+        Until then, the power believers have over Satan is to resist, reject or rebuke him in the Name of The LORD and he will surely flee, (Matthew 4:9, James 4:7, Jude 1:9, Zechariah 3:2). And this power is powerfully effective and works. At a believer's command, Satan cannot hang around, if he is not wanted!          </Text>
+        <Text style={styles.paragraph}>
+        Unlike Satan, however, the demonic spirits, his workers and agents can be bound, (Matthew 10:1, Mark 16:15-18, Luke 10:19-20). Believers have the power to bind them, using the authority of the Name of the Son of God, The Messiah Yeshua of Nazareth.        </Text>
+        <Text style={styles.paragraph}>
+        To do this, a believer must himself be a genuine follower of The Messiah, obedient to God, and unlike the sons of Sceva, (James 4:7, Acts 19:13-17). Each person must totally choose which side he or she belongs. It cannot be one leg in one and another leg in another. It must be either hot or cold, and not lukewarm, in between the two kingdoms. Believers who choose to obey are enabled, empowered by the Holy Spirit to do so.           </Text>
+         <Text style={styles.paragraph}>
+         The spiritual world works by authority. Genuine followers of The Messiah have higher authority over  the kingdom of darkness. They derive their powers and authority directly from The LORD himself, (Philippians 2:9-10, Matthew 10:1, Mark 16:15-18, Luke 10:19-20, Matthew 16:19, Matthew 18:18). But the disobedient ones have little or no authority. The devil is their master. They are in fact under the authority of Satan and the demonic spirits. So, how can they control one who is higher than them. Water does not naturally flow uphill, but downhill. Hence the experience of the sons of Sceva.           </Text>
+         <Text style={styles.paragraph}>
+         Satan is always going around, looking to swallow up, looking to incapacitate, looking to tempt believers to fall to his side or to accuse them, (1 Peter 5:8, Job 1:8-10, Job 2:1-5, Zechariah 3:1-5). But believers are protected by the righteousness given to them by God through The Son, (Isaiah 54:17, 1 Corinthians 1:30). Believers have at their disposal, the weapon of the Name of The LORD, the weapon of the Blood of The Lamb, (Revelation 12:10-11), the weapon of The Word of God, which is the Sword of the Spirit, (Ephesians 6:17), and the whole array of weapons of the Armor of God, which are both for defense and for attack against the principalities, powers, rulers of the darkness of this age, and against spiritual Hosts of wickedness in the heavenly places, (Ephesians 6:12-18).            </Text>
+         <Text style={styles.paragraph}>
+         What is done in the spiritual realm manifests in the physical. So by taking authority over the Satanic and demonic masters in the spiritual realm, their human agents in the physical also become defeated. That is how it should be done. That is, you focus on destroying the root source, not trying to cut the branches. Just defeating the human agent alone is not enough because the spiritual masters can quickly recruit other human agents. But when the root of power in the spiritual realm is defeated, that power is gone, and cannot operate or recruit other agents in the physical. And also, the battle is really against the spiritual lords and powers, and not against human beings. For God loves souls and wants them to be saved. He sent His begotten son because of His love to save all human beings (John 3:16-17). So, do not focus your power to destroy people, because God is not for that. Rather, focus on destroying the spiritual, the root source, while at the same time, praying for the salvation of the souls of human beings being used by them. God will destroy any human agents, when they are beyond redemption. This was the case with Ananias and Sapphira, (Acts 5:1-10). And to sin out of ignorance or to sin willfully after knowledge are two different things. They knew about God, the Holy Spirit, the people of God and what The Holy Spirit was doing among them. But they willfully went among the believers to deceptively operate to pollute and stop the move of the Holy Spirit. They were blatantly working in sin against the Holy Spirit, and so had no further mercy from God, (Matthew 12:32). God removed His protection over them, since they had willfully and totally rejected His love, and Peter's pronouncement as led by the Holy Spirit took root. This was not the case with Simon the sorcerer who was new, still in ignorance and his life was spared, (Acts 8:18-24).  Also, Saul known as Paul had previously acted and blasphemed in ignorance against the move of The LORD and the Holy Spirit. He received God's mercy, (1 Timothy 1:12-14). God is the creator of life, who loves all, knows every heart and has the final say. [ref 1 Peter 5:8, Job 1:8-10, Job 2:1-5, Zechariah 3:1-5, Isaiah 54:17, 1 Corinthians 1:30, 2 Corinthians 10:4-6, Revelation 12:10-11, Matthew 28:18-20, Matthew 10:1, Mark 16:15-18, Luke 10:19-20, Matthew 16:19, Matthew 18:18, Philippians 2:9-11, Colossians 1:16, Colossians 2:9, Ephesians 6:12-18]         </Text>
+        
+         
+    </View>
+)
+
+
+
+const styles = StyleSheet.create({
+   paragraph: {
+       paddingLeft: 20
+   }
+})

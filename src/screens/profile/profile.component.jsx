@@ -13,7 +13,6 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
 
     const { notes } = note
 
-    console.log(notes)
    
 
     const pickImage = async () => {
@@ -128,6 +127,7 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                         </View>
                     </Pressable>
 
+
                     <Pressable
                         onPress={() => navigation.navigate('Donate')}
                     >
@@ -142,7 +142,20 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                             </View>
                         </View>
                     </Pressable>
-
+                    <Pressable
+                        onPress={() => navigation.navigate('Login')}
+                    >
+                        
+                        <View style={styles.icon_nested}>
+                            <Ionicons name='log-in' color='black' size={25} />
+                            <View  style={styles.text}>
+                                <Text style={styles.text_nested}>Login</Text>
+                                <Text style={{fontSize: 14}}>
+                                    You must be logged in to access Subscription
+                                </Text>
+                            </View>
+                        </View>
+                    </Pressable>
 
                     {/* <View style={styles.icon_nested}>
                         <Ionicons name='ios-information-circle' color='black' size={25} />

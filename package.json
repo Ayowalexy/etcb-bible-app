@@ -7,6 +7,8 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.2",
+    "@expo-google-fonts/ubuntu": "^0.2.2",
     "@ptomasroos/react-native-multi-slider": "^2.2.2",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/checkbox": "^0.5.8",
@@ -20,12 +22,14 @@
     "expo": "~42.0.1",
     "expo-clipboard": "~1.1.0",
     "expo-constants": "~11.0.1",
+    "expo-font": "~9.2.1",
     "expo-image-picker": "~10.2.2",
     "expo-linear-gradient": "^9.2.0",
     "expo-notifications": "~0.12.3",
     "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
     "expo-updates": "~0.8.1",
+    "formik": "^2.2.9",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -42,7 +46,8 @@
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

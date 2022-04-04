@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "4609300517",
+    "project_id": "end-time-bible",
+    "storage_bucket": "end-time-bible.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4609300517:android:0d022b2760d1c80fccc7cc",
+        "android_client_info": {
+          "package_name": "com.ayowalexy.ETBBIBLE"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4609300517-b6kia4afrgn38nolpgooqpagslnf8mja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnEomxk46bYluffZ8Z6hEj1SBzbOAG5yA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4609300517-b6kia4afrgn38nolpgooqpagslnf8mja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

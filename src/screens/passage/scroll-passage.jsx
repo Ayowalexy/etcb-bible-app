@@ -13,9 +13,18 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 
+let userColorNew = 'red'
+const VerseComponent = ({verse_Number,part,msg, color = 'black', verse_color, verse, data, navigation, fontSize, fontColor, refer, heading, comment, before_verse, after_verse, GOD_SAID}) => {
 
-const VerseComponent = ({verse_Number,part, verse, data, navigation, fontSize, fontColor, refer, heading, comment, before_verse, after_verse, GOD_SAID}) => {
+    if(color && verse_color){
+        userColorNew = verse_color
+    } else if (verse_color || color){
+        // userColorNew = 'black'
+    } else {
+        userColorNew = 'black'
+    }
 
+    console.log(color, verse_color)
     const { width } = useWindowDimensions()
     return (
         <View style={{
@@ -25,14 +34,15 @@ const VerseComponent = ({verse_Number,part, verse, data, navigation, fontSize, f
             // marginBottom: 5
         }}>
             { heading !== null || heading === "" ? <Text style={{fontWeight: 'bold', fontSize: 17, padding: 10, marginBottom: -20}}>{heading}</Text> : null}
+            { msg !== null ? <Text style={{fontWeight: 'bold',textAlign: "center", fontSize: 17, padding: 10, marginBottom: -20}}>{msg}</Text> : null}
         <View style={{flex: 1, marginTop: 20, flexDirection: 'row',  width: width - 20, marginBottom: 0}}>
             <Text style={[styles.chapter_number, {fontSize: fontSize}]}>{verse_Number}</Text>
-            <Text style={[styles.chapter_verse, {fontSize: fontSize, color: fontColor}]}>
-               { verse.includes('“') || verse.includes('”') ? 
+            <Text style={[styles.chapter_verse, {fontSize: fontSize, color: verse_color ? verse_color : color}]}>
+               { verse.includes('“ ') ? 
                <Text>
-                   { verse.includes('“') ? <Text style={{color:'black'}}>{verse.slice(0, verse.indexOf('“'))}</Text> : null}
-                   <Text  style={{color: part === 'OT' ? 'blue': 'red'}}>
-                       {verse.includes('“') ? verse.slice(verse.indexOf('“'), verse.indexOf('”')) : 
+                   { verse.includes('“ ') ? <Text style={{color:'black'}}>{verse.slice(0, verse.indexOf('“ '))}</Text> : null}
+                   <Text  style={{color: part === "OT" ? 'blue': 'red'}}>
+                       {verse.includes('“ ') ? verse.slice(verse.indexOf('“ '), verse.indexOf('”')) : 
                        verse.slice(0, verse.indexOf('”'))}
                     </Text>
                    <Text style={{color:'black'}}>{verse.slice(verse.indexOf('”'))}</Text>

@@ -13,6 +13,7 @@ import PromptsModal from '../../components/modal/prompts-modal.component';
 import { setBookMark, resetBookmark } from '../../redux/bookmark/bookmark.action';
 import { setHighlight, resetHighlight } from '../../redux/highlight/highlight.actions';
 import Ionicons from '@expo/vector-icons/Ionicons';
+// import  Commentary from '../../commentary.component/commentary.component'
 
 let bookmarks = []
 let verse;
@@ -241,8 +242,11 @@ const RenderVerse = ({item, style, details,clearBook, fontColor, navigation, fon
                                     fontColor={fontColor} 
                                     heading={chap.header}
                                     refer={chap.ref}
+                                    msg={chap.msg || null}
                                     comment={chap.comment}
-                                    part={item.part? 'NT' : 'OT'}
+                                    part={item.part || 'OT'}
+                                    verse_color={chap.verse_color}
+                                    color={item.color}
                                     
                                     
                                     // before_verse={chap.before_verse}
@@ -255,6 +259,8 @@ const RenderVerse = ({item, style, details,clearBook, fontColor, navigation, fon
                         </View>
                         )}) 
             }
+
+         
         </View>
     )
 }

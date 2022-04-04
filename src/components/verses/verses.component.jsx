@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity,Button, Dimensions } from 'react-native'
 import DATABASE from '../../../database';
 import { connect } from 'react-redux'
 import { setCurrentBook, setCurrentBookChapter, setData } from '../../redux/books/books.actions';
@@ -20,6 +20,8 @@ const Verses = ({book, navigation, currentBook, data}) => {
         arr.push(i)
     }
 
+    console.log(currBook.chapter, '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+
     const bookRender = Books.find(bookMatch => {
         if(bookMatch.EnglishName === EnglishName){
             return bookMatch
@@ -28,10 +30,10 @@ const Verses = ({book, navigation, currentBook, data}) => {
 
     
             return(
-            <View>
+            <ScrollView style={{marginBottom: 30}}>
                 <View>
                     <Text style={{padding: 20, fontSize: 20, fontWeight: 'bold'}}>{EnglishName} : {chapter} </Text>
-                    <ScrollView>
+                    <View>
                         <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
                             {
                             arr.map(chapter_Number => {
@@ -57,9 +59,30 @@ const Verses = ({book, navigation, currentBook, data}) => {
                             }) 
                             }
                         </View>
-                    </ScrollView>
+                        {
+                            currBook.comment ?
+                            (<View 
+                            style={{
+                                width: 200,
+                                marginLeft: (Dimensions.get('window').width - 200 ) / 2
+        
+                            }}
+                           >
+                            <Button
+                                    color='black'
+                                    title='COMMENTARY'
+                                    onPress={() => navigation.navigate('Commentary',{
+                                        EnglishName: EnglishName,
+                                        chapter: currBook.chapter
+                                    })}
+        
+                                />
+                                </View>)
+                                : null
+                        }
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         )
 }
 

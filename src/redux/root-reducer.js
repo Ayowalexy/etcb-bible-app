@@ -9,12 +9,13 @@ import { persistReducer } from 'redux-persist'
 import dayNightReducer from './day-night/day-night.reducer';
 import noteReducer from './notes/notes.reducer';
 import searchHistory from './history/history.reducer';
+import tokenReducer from './token/token.reducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const persistConfig = {
     key: 'root',
     storage: AsyncStorage,
-    whitelist: ['bookmark', 'highlight', 'book', 'chapter', 'verse', 'note', 'history']
+    whitelist: ['bookmark', 'token', 'highlight', 'book', 'chapter', 'verse', 'note', 'history']
 }
 
 
@@ -27,7 +28,8 @@ const rootReducer =  combineReducers({
     highlight: hightLightReducer,
     style: dayNightReducer,
     note: noteReducer,
-    history: searchHistory
+    history: searchHistory,
+    token: tokenReducer
 })
 
 

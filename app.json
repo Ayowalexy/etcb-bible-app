@@ -17,7 +17,9 @@
       "**/*"
     ],
     "android": {
-      "package": "com.ayowalexy.ETBBIBLE"
+      "package": "com.ayowalexy.ETBBIBLE",
+      "googleServicesFile": "./google-services.json"
+
     },
     "ios": {
       "bundleIdentifier": "com.ayowalexy.ETBBIBLE"

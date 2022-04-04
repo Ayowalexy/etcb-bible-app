@@ -50,7 +50,9 @@ const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
                     <Button
                             color='black'
                             title='INTRODUCTION'
-                            onPress={() => navigation.navigate('Introduction')}
+                            onPress={() => navigation.navigate('Introduction', {
+                                EnglishName: EnglishName
+                            })}
                         />
                    </View>
                     
@@ -93,7 +95,7 @@ const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
 
                         </View>
 
-                        <Text
+                        {/* <Text
                         style={{
                             padding: 20,
                         }}
@@ -111,7 +113,7 @@ const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
                             onPress={() => navigation.navigate('Commentary')}
 
                         />
-                        </View>
+                        </View> */}
                         
                 </View>
             </ScrollView>

@@ -9,6 +9,9 @@ import StripePayout from '../components/stripe/stripe.component';
 import DaliyNotification from './daily-notification.component';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import { useStripe } from '@stripe/stripe-react-native';
+import registerForPushNotificationsAsync from './exp';
+
+// registerForPushNotificationsAsync()
 
 
 let num = 1;
@@ -39,16 +42,16 @@ let match = '' || DAILY_VERSES[0];
 
 
 // setInterval(() => {
-//   Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: `${match.title}`,
-//       body: `${match.body}`
-//     },
-//     trigger: {
-//       seconds: 10,
-//       // repeats: true
-//     }
-//   })
+  // Notifications.scheduleNotificationAsync({
+  //   content: {
+  //     title: `Hello`,
+  //     body: `World`
+  //   },
+  //   trigger: {
+  //     seconds: 10,
+  //     // repeats: true
+  //   }
+  // })
 // }, 60000);
 
 
