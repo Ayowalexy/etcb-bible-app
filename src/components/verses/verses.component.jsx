@@ -1,18 +1,27 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, Text, ScrollView, TouchableOpacity,Button, Dimensions } from 'react-native'
 import DATABASE from '../../../database';
 import { connect } from 'react-redux'
 import { setCurrentBook, setCurrentBookChapter, setData } from '../../redux/books/books.actions';
 import Books from '../../../Books';
 import { BibleBooks } from '../../screens/passage/data';
+import { Colors } from '../../assets/Colors';
+import { setUserDetails } from '../../redux/user/user.action';
 
 
+const freeBooks = ["Genesis", "Jonah", "Mark", "Jude"]
 
-
-const Verses = ({book, navigation, currentBook, data}) => {
-
+const Verses = ({book, navigation, currentBook, data, user, setUserData}) => {
+    const [expiredSub, setExpiredSub] = useState(false)
 
     const { EnglishName, verse, chapter } = book
+    const [HebrewName, setHebrewName] = useState('')
+
+    useEffect(() => {
+        const book = Books.find(data => data.EnglishName ===  EnglishName)
+        setHebrewName(book.HebrewName)
+    }, [EnglishName])
+
 
     let currBook = BibleBooks[EnglishName].find(data => data.chapter === chapter)
     let arr = [];
@@ -20,7 +29,6 @@ const Verses = ({book, navigation, currentBook, data}) => {
         arr.push(i)
     }
 
-    console.log(currBook.chapter, '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
 
     const bookRender = Books.find(bookMatch => {
         if(bookMatch.EnglishName === EnglishName){
@@ -28,13 +36,54 @@ const Verses = ({book, navigation, currentBook, data}) => {
         }
     })
 
+
+    useEffect(() => {
+        const today = new Date();
+        const expiry = new Date(user.subscriptionStatus.expires);
+        if(user.subscriptionStatus.expires){
+            if(today.getTime() > expiry.getTime()){
+                setExpiredSub(true)
+                setUserData({
+                    email: user.email,
+                    loggedIn: true,
+                    subscriptionStatus: {
+                        started: '',
+                        expires: '',
+                        subscribed: false
+                    }
+                })
+            } else {
+                setExpiredSub(false)
+            }
+        }
+      
+
+    }, [])
+
     
             return(
-            <ScrollView style={{marginBottom: 30}}>
-                <View>
-                    <Text style={{padding: 20, fontSize: 20, fontWeight: 'bold'}}>{EnglishName} : {chapter} </Text>
+            <ScrollView>
+                <View
+                    style={{
+                         display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        alignContent: 'center',
+                        width: Dimensions.get('screen').width,
+                    }}
+                >
+                    
+                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{EnglishName} : {chapter} </Text>
+                    <Text >{HebrewName}</Text>
                     <View>
-                        <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
+                        <View style={{
+                            display: 'flex', 
+                            flexDirection: 'row', 
+                            flexWrap: 'wrap',
+                            justifyContent: 'center',
+                            width: Dimensions.get('screen').width,
+                            alignItems: 'center'
+                            }}>
                             {
                             arr.map(chapter_Number => {
 
@@ -42,34 +91,51 @@ const Verses = ({book, navigation, currentBook, data}) => {
                                     
                                         <TouchableOpacity
                                             key={chapter_Number}
+                                            style={{
+                                                width: 40, 
+                                                margin: 10, 
+                                                height: 40, 
+                                                backgroundColor: Colors.SECONDARY_FADED,
+                                                display: 'flex',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                borderWidth: 2,
+                                                borderColor: '#E39121'
+                                                }}
                                             onPress={() => {
-                                                data({...bookRender, currentChapter: book.chapter, salt: true})
+                                                data({...bookRender, currentChapter: book.chapter, salt: true, verse: chapter_Number})
                                                 //currentBook({...bookRender, currentChapter: book.chapter, salt: true})
-                                                navigation.navigate('Passage')
+                                                if((user.subscriptionStatus.subscribed === true) && (expiredSub === false)){
+                                                    navigation.navigate('Passage')
+                                                } else if((user.subscriptionStatus.subscribed === false) && (freeBooks.includes(EnglishName))){
+                                                    navigation.navigate('Passage')
+                                                } else {
+                                                    navigation.navigate('Lock')
+                                                }
                                             }}
                                         >
-                                            <View style={{width: 40, marginTop: 10, marginLeft: 10, marginRight: 10, marginBottom: 10, height: 40, borderColor: 'black', borderStyle: 'solid', borderWidth: 2}}>
-                                               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                                                     <Text>{chapter_Number}</Text>
-                                               </View>
-                                            </View>
                                         </TouchableOpacity>    
 
                                 )
                             }) 
                             }
                         </View>
-                        {
+                        
+                    </View>
+                    {
                             currBook.comment ?
                             (<View 
                             style={{
                                 width: 200,
-                                marginLeft: (Dimensions.get('window').width - 200 ) / 2
+                                borderWidth: 2,
+                                borderColor: '#E39121',
+                                // marginLeft: (Dimensions.get('window').width - 200 ) / 2
         
                             }}
                            >
                             <Button
-                                    color='black'
+                                    color={Colors.SECONDARY}
                                     title='COMMENTARY'
                                     onPress={() => navigation.navigate('Commentary',{
                                         EnglishName: EnglishName,
@@ -80,7 +146,6 @@ const Verses = ({book, navigation, currentBook, data}) => {
                                 </View>)
                                 : null
                         }
-                    </View>
                 </View>
             </ScrollView>
         )
@@ -88,11 +153,13 @@ const Verses = ({book, navigation, currentBook, data}) => {
 
 const mapStateToProps = state => ({
     book: state.verse.setCurrentVerse,
-    chapter: state.chapter.setCurrentChapter
+    chapter: state.chapter.setCurrentChapter,
+    user: state.user.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
     data: book => dispatch(setData(book)),
+    setUserData: user => dispatch(setUserDetails(user)),
     currentBook: book => dispatch(setCurrentBook(book))
 })
 

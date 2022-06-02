@@ -1,4 +1,4 @@
-import historyUtils from './history.utils';
+import historyUtils, { deleteHistory } from './history.utils';
 
 const INITIAL_STATE = {
     text: ''
@@ -10,6 +10,11 @@ const searchHistory = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 text: historyUtils(state.text, action.payload)
+            }
+        case 'DELETE_SEARCH': 
+            return {
+                ...state,
+                text: deleteHistory(state.text, action.payload)
             }
         default: {
             return state

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { View, Text, Modal, TouchableOpacity, Pressable, Platform } from 'react-native'
+import { View, Text, Modal, TouchableOpacity, Pressable, Platform, Dimensions } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { connect } from 'react-redux'
 import { setBookMark } from '../../redux/bookmark/bookmark.action';
@@ -25,10 +25,10 @@ const PromptsModal = ({modal, setModal, highlight, bookmark, bookmarks, verse}) 
         }
     }
 >
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{display:'flex', justifyContent: 'center', alignItems: 'center', height: Dimensions.get('window').height}}>
         <View style={{width: 270,backgroundColor: 'white', height: 200, 
         borderColor: 'black', borderStyle: 'solid', borderWidth: 2}}>
-            <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', marginTop: -70}}>
+            <View style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap',}}>
                 <TouchableOpacity
                     onPress={() => {
                                     

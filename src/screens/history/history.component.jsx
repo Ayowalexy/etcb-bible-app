@@ -9,9 +9,9 @@ const History = ({search, deleteText}) => {
 
     
 
-    const { text } = search
+    const { text = [] } = search
+    // console.log(search)
 
-    console.log(text)
     //console.log(text[0].search, 'text')
     return (
         <ScrollView style={styles.container}>
@@ -24,11 +24,11 @@ const History = ({search, deleteText}) => {
                             <Text style={styles.text}>{value.search}</Text>
                         </View>
                         <View>
-                            <Pressable
-                                // onPress={() => deleteText(value.search)}
+                            <TouchableOpacity
+                                onPress={() => deleteText(value.search)}
                             >
                                 <Ionicons name='trash' size={20} color='black' />
-                            </Pressable>   
+                            </TouchableOpacity>   
                         </View>
                        
                     </View>
@@ -59,9 +59,12 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = state => ({
-    search: state.history
-})
+const mapStateToProps = state => {
+    return {
+        search: state.history
+
+    }
+}
 
 const mapDispatchToProps = dispatch => ({
     deleteText: text => dispatch(deleteText(text))

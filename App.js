@@ -59,6 +59,17 @@ import Introduction from './src/components/commentary.component.jsx/introduction
 import Commentary from './src/components/commentary.component.jsx/commentary.component';
 import Login from './src/screens/login/login.component';
 import Prompt from './src/screens/prompt/prompt.component';
+import LockScreen from './src/screens/Lock/Lock';
+import Sponsor from './src/screens/Sponsor/sponsor.component';
+import Comparisons from './src/screens/Comparison/comaprison';
+import Language from './src/screens/Comparison/Laguage';
+import Completeness from './src/screens/Comparison/Completeness';
+import Preservation from './src/screens/Comparison/Preservation';
+import Other from './src/screens/Comparison/Other';
+
+
+
+
  console.disableYellowBox = true;
 
 
@@ -72,7 +83,8 @@ const App = () => {
   return (
         <Provider store={store}>
           <PersistGate persistor={persistor}>
-            <NavigationContainer>
+            <NavigationContainer >
+             
               <Stack.Navigator mode='modal'>
                   {/* <Stack.Screen name='Prompt Page' component={Prompt} options={{headerShown: false}}/> */}
                   <Stack.Screen name='Home Page' component={HomeTabs} options={{headerShown: false}}/>
@@ -86,8 +98,8 @@ const App = () => {
                   <Stack.Screen name='Search Result' component={SearchResult} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='modal' component={ModalRender} />
                   <Stack.Screen name='Drawer' component={DrawerTab} options={{headerShown: Platform.OS === 'ios'? true : false}} />
-                  <Stack.Screen name='Premium' component={Premium} options={{headerShown: true}} />
-                  <Stack.Screen name='Compare' component={Compare} options={{headerShown: true}} />
+                  <Stack.Screen name='Preview' component={Premium} options={{headerShown: true}}  />
+                  <Stack.Screen name='Compare' component={Comparisons} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Highlight' component={Highlights} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Bookmarks' component={Bookmarks} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Donate' component={Ap} options={{headerShown: Platform.OS === 'ios'? true : false}} />
@@ -97,6 +109,12 @@ const App = () => {
                   <Stack.Screen name='Introduction' component={Introduction} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Commentary' component={Commentary} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                   <Stack.Screen name='Login' component={Login} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Lock' component={LockScreen} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Language' component={Language} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Completeness' component={Completeness} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Preservation' component={Preservation} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Other' component={Other} options={{headerShown: Platform.OS === 'ios'? true : false}} />
+                  <Stack.Screen name='Sponsor' component={Sponsor} options={{headerShown: Platform.OS === 'ios'? true : false}} />
                  
               </Stack.Navigator>
             </NavigationContainer> 

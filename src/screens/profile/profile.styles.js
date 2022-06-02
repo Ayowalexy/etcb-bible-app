@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native'
+import { Colors } from '../../assets/Colors'
 
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#171C24'
+        backgroundColor: Colors.PRIMARY 
     },
     user : {
         marginTop: 30, 
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
         marginRight: 10, 
         marginBottom: 30,
         flex: 1, 
-        backgroundColor: 'white', 
+        backgroundColor: Colors.SECONDARY, 
         paddingTop: 40, 
         paddingBottom: 40, 
         borderRadius: 20
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
         marginRight: 20, 
         paddingBottom: 20, 
         marginBottom: 30, 
-        borderBottomColor: 'black', 
+        borderBottomColor: Colors.PRIMARY, 
         borderBottomWidth: 1, 
         // borderBottomStyle: 'solid'
     },
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
     },
     text_nested: {
         fontWeight: 'bold', 
-        fontSize: 20
+        fontSize: 20,
+        color: Colors.PRIMARY
     }
 })
 

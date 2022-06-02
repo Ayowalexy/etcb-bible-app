@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker'
 import styles from './profile.styles'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { connect } from 'react-redux'
+import { Colors } from '../../assets/Colors'
 
 const Profile = ({bookmark, hightlight, navigation, note}) => {
     const [image, setImage] = useState(null)
@@ -33,30 +34,30 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                 <View style={styles.user}>
                     {
                         image ?  <Image source={{uri: image}} style={styles.image} /> :
-                        <Ionicons name='md-person' size={105} color='white' />
+                        <Ionicons name='md-person' size={105} color={Colors.SECONDARY} />
                     }
                    
                     <TouchableOpacity
                         onPress={pickImage}
                         style={styles.camera}
                     >
-                        <Ionicons name='camera' size={40} color='white' />
+                        <Ionicons name='camera' size={40} color={Colors.SECONDARY} />
                     </TouchableOpacity>
                 </View>
 
 
                 <View style={styles.icons}>
                     <View style={styles.icon_nested}>
-                        <Ionicons name='notifications' color='black' size={25} />
+                        <Ionicons name='notifications' color={Colors.PRIMARY} size={25} />
                         <View style={styles.text}>
                             <Text style={styles.text_nested}>Notification</Text>
-                            <Text style={{fontSize: 14}}>You have three emails and a plan to start this week</Text>
+                            <Text style={{fontSize: 14, color: Colors.PRIMARY}}>No Notification</Text>
                         </View>
                     </View>
 
                     
                     <View style={styles.icon_nested}>
-                        <Ionicons name='bookmarks' color='black' size={25} />
+                        <Ionicons name='bookmarks' color={Colors.PRIMARY} size={25} />
                         <Pressable
                             onPress={() => book.length ? navigation.navigate('Bookmarks') : ''}
                         >
@@ -64,13 +65,14 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                                 <Text style={styles.text_nested}>Bookmarks</Text>
                                 
                                 {
-                                    book.length ? book.map((element, idx) => {
+                                    book.length && book.includes(null) ? [book.shift()].map((element, idx) => {
+                                        console.log(element)
                                         return (
                                           
-                                            <Text key={idx} style={{fontSize: 14}}>{`${element.EnglishName} ${element.chapter}:${element.verse_number}`}</Text>
+                                            <Text key={idx} style={{fontSize: 14, color: Colors.PRIMARY}}>{`${element.EnglishName} ${element.chapter}:${element.verse_number}`}</Text>
                                          
                                         )
-                                    }) : <Text style={{fontSize: 14}}>No bookmarks  available</Text>
+                                    }) : <Text style={{fontSize: 14, color: Colors.PRIMARY}}>No bookmarks  available</Text>
 
                                 }
                             </View>
@@ -79,7 +81,7 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
 
 
                     <View style={styles.icon_nested}>
-                        <Ionicons name='ios-pencil-sharp' color='black' size={25} />
+                        <Ionicons name='ios-pencil-sharp' color={Colors.PRIMARY} size={25} />
                         <View  style={styles.text}>
 
                             <Pressable
@@ -91,10 +93,10 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                                         verse.map((element, idx) => {
                                             const { EnglishName, currentChapter, verse, verse_number } = element
                                             return (
-                                                <Text key={idx} style={{fontSize: 14}}>{`${EnglishName} ${currentChapter}:${verse_number}; ${verse.slice(0, 40)}...`}</Text>
+                                                <Text key={idx} style={{fontSize: 14, color: Colors.PRIMARY}}>{`${EnglishName} ${currentChapter}:${verse_number}; ${verse.slice(0, 40)}...`}</Text>
                                             )
                                         })
-                                    : <Text>No Highlights Available</Text>
+                                    : <Text style={{color: Colors.PRIMARY}}>No Highlights Available</Text>
                                     
                                 }
                             </Pressable>
@@ -107,7 +109,7 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                         onPress={() => notes ? navigation.navigate('Display Notes') : '' }
                     >
                         <View style={styles.icon_nested}>
-                            <Ionicons name='md-book' color='black' size={25} />
+                            <Ionicons name='md-book' color={Colors.PRIMARY} size={25} />
                             <View  style={styles.text}>
                                 <Text style={styles.text_nested}>Notes</Text>
 
@@ -115,10 +117,10 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                                     notes ? 
                                     notes.map((element, idx) => (
                                         <View key={idx} style={{flex: 1, flexDirection: 'row'}}>
-                                            <Text>{element.text}</Text>
-                                            <Text>{element.notes.slice(0, 40)}...</Text>
+                                            <Text style={{color: Colors.PRIMARY}}>{element.text}</Text>
+                                            <Text style={{color: Colors.PRIMARY}}>{element.notes.slice(0, 40)}...</Text>
                                         </View>
-                                    )) :  <Text style={{fontSize: 14}}>No note taken yet</Text>
+                                    )) :  <Text style={{fontSize: 14, color: Colors.PRIMARY}}>No note taken yet</Text>
 
                                 
                                 }
@@ -133,10 +135,10 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                     >
                         
                         <View style={styles.icon_nested}>
-                            <Ionicons name='heart' color='black' size={25} />
+                            <Ionicons name='heart' color={Colors.PRIMARY} size={25} />
                             <View  style={styles.text}>
                                 <Text style={styles.text_nested}>Donate</Text>
-                                <Text style={{fontSize: 14}}>Give to those that need, click to donate to whichever amount to the 
+                                <Text style={{fontSize: 14, color: Colors.PRIMARY}}>Give to those that need, click to donate to whichever amount to the 
                                     population that needs it
                                 </Text>
                             </View>
@@ -147,10 +149,10 @@ const Profile = ({bookmark, hightlight, navigation, note}) => {
                     >
                         
                         <View style={styles.icon_nested}>
-                            <Ionicons name='log-in' color='black' size={25} />
+                            <Ionicons name='log-in' color={Colors.PRIMARY} size={25} />
                             <View  style={styles.text}>
                                 <Text style={styles.text_nested}>Login</Text>
-                                <Text style={{fontSize: 14}}>
+                                <Text style={{fontSize: 14, color: Colors.PRIMARY}}>
                                     You must be logged in to access Subscription
                                 </Text>
                             </View>

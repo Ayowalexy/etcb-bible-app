@@ -247,6 +247,7 @@ const RenderVerse = ({item, style, details,clearBook, fontColor, navigation, fon
                                     part={item.part || 'OT'}
                                     verse_color={chap.verse_color}
                                     color={item.color}
+                                    colored={item.colored || null}
                                     
                                     
                                     // before_verse={chap.before_verse}

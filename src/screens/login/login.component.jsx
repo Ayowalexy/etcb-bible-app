@@ -1,22 +1,31 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, SafeAreaView,Dimensions, TouchableOpacity,KeyboardAvoidingView, ScrollView, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ActivityIndicator,Dimensions, TouchableOpacity,KeyboardAvoidingView, ScrollView, Button } from 'react-native';
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import userSchema from './useSchema';
+import { Colors } from '../../assets/Colors';
+import { styles } from './styles';
+import { connect} from 'react-redux'
+import { setUserDetails } from '../../redux/user/user.action';
+import { signUp, login } from '../../components/payment-screen/api-fetch';
 
 
 
 
-const Login = () => {
+const Login = ({navigation, setUser}) => {
     const [text, onChangeText] = React.useState("");
     const [password, onChangePassword] = React.useState("");
-    const [ showpassword, setShowPassword ] = useState(false)
+    const [ showpassword, setShowPassword ] = useState(false);
+    const [pressed, setPressed] = useState(false)
 
     // let [fontsLoaded] = useFonts({
     //     Inter_900Black,
     //   });
 
+    const handleSubmit = async () => {
+        const data = await signUp()
+    }
 
 
     return (
@@ -24,158 +33,130 @@ const Login = () => {
         validationSchema={userSchema}
         initialValues={{ email: '', password: '' }}
         validateOnMount={true}
-        onSubmit={values => {       
-            // api.post('/login', values)
-            // .then(response => setFeedback(response.data))
-            // .catch(error => console.log(error))
-
-
-            if(feedback){
-                // return navigation.navigate('Homepage')
-            }
+        onSubmit={ async (values) => {       
+            const data = await signUp({email: values.email, password: values.password})
+            console.log(data)
         }}
       > 
         
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid }) => (
        
-            <View style={styles.container}> 
-             <KeyboardAvoidingView>
-
-
-       
-            
-            <View>
-                <View style={styles.etb}>
-                    <Text style={styles.etb_text}>
+            <View style={styles.CONTAINER}
+                > 
+             {/* <KeyboardAvoidingView>            */}
+                <View style={styles.ETB_BACKGROUND} >
+                    <Text style={styles.ETB}>
                         ETB
                     </Text>
                 </View>
+
+                <View>
+                    <Text style={styles.ETB_TEXT}>End Time Bible Translation</Text>
+                </View>
+
+                <View style={{
+                    width: '90%',
+                    marginTop: 80
+                }}>
+                    <View>
+                        <Text
+                            style={styles.DETAILS}
+                        >Email</Text>
+                        <View>
+                             <View style={styles.BOX}>
+                                <TextInput 
+                                        placeholderTextColor='black'
+                                        keyboardType='email-address'
+                                        style={{color: 'black'}}
+                                        placeholder='Enter Email Address'
+                                        onChangeText={handleChange('email')}
+                                        onBlur={handleBlur('email')}
+                                        value={values.email}
+                                />
+                                {/* <Ionicons name={errors.email ? 'close-outline' : 'checkmark'} size={20} color='white' /> */}
+                            </View>
+                            {(errors.email && touched.email) &&
+                            <Text style={styles.error}>{errors.email}</Text>
+                            }
+                        </View>
+
+                        <Text
+                            style={styles.DETAILS}
+                        >Password</Text>
+                        <View style={styles.BOX}>
+                            <TextInput 
+                                placeholderTextColor='black'
+                                style={styles.input}
+                                placeholder='Enter Password'
+                                onChangeText={handleChange('password')}
+                                onBlur={handleBlur('password')}
+                                value={values.password}
+                                secureTextEntry={!showpassword ? true : false}
+                            />
+
+                            <TouchableOpacity
+                                style={styles.ICON}
+                                onPress={() => {
+                                    setShowPassword(prevState => !prevState)
+                                }}
+                            >
+                                    <Ionicons name={showpassword ? 'eye-off-outline' : 'eye-outline'} size={20} color={Colors.SECONDARY} />
+                            </TouchableOpacity>
+                        </View>
+
+                        {(errors.password && touched.password) &&
+                        <Text style={styles.error}>{errors.password}</Text>
+                        }
+
+
+                        
+                    </View>
+
+                    <TouchableOpacity 
+                            onPress={ async() => {
+                                setPressed(true)
+                                const data = await signUp({
+                                    email: values.email, 
+                                    password: values.password,
+                                    loggedIn: true,
+                                    started: '',
+                                    expires: '',
+                                    subscribed: false
+                                    
+                                })
+                                if(data["message"] === 'Ok'){
+                                        setPressed(false)
+                                        setUser({...data["response"]})
+                                    navigation.navigate('Home Page')
+                                } else {
+                                    setPressed(false)
+                                }
+                                
+                            }}
+                            style={[
+                                styles.SIGN_UP, 
+                                {backgroundColor: pressed ? Colors.SECONDARY_FADED : Colors.SECONDARY
+                                }]}
+                        >
+                            {
+                                pressed 
+                                ?
+                                <ActivityIndicator size="small" color={Colors.PRIMARY} />
+                                :
+                                <Text style={{fontWeight: 'bold', fontSize: 18, color: Colors.PRIMARY}}>Sign Up</Text>
+
+                            }
+                        </TouchableOpacity>
+                </View>
             </View>
-            <Text style={styles.text}>
-                Email
-            </Text>
-
-            <View style={styles.text_input}>
-                <TextInput 
-                        placeholderTextColor='white'
-                        keyboardType='email-address'
-                        style={styles.input}
-                        placeholder='Enter Email Address'
-                        onChangeText={handleChange('email')}
-                        onBlur={handleBlur('email')}
-                        value={values.email}
-                />
-                {/* <Ionicons name={errors.email ? 'close-outline' : 'checkmark'} size={20} color='white' /> */}
-            </View>
-            {(errors.email && touched.email) &&
-            <Text style={styles.error}>{errors.email}</Text>
-            }
-                            
-            <Text style={styles.text}>
-                Password
-            </Text>
-
-
-            <View>
-                <TextInput 
-                    placeholderTextColor='white'
-                    style={styles.input}
-                    placeholder='Enter Password'
-                    onChangeText={handleChange('password')}
-                    onBlur={handleBlur('password')}
-                    value={values.password}
-                    secureTextEntry={!showpassword ? true : false}
-                />
-
-                <TouchableOpacity
-                    onPress={() => {
-                        setShowPassword(prevState => !prevState)
-                    }}
-                >
-                        {/* <Ionicons name={showpassword ? 'eye-off-outline' : 'eye-outline'} size={20} color='white' /> */}
-                </TouchableOpacity>
-            </View>
-
-            {(errors.password && touched.password) &&
-            <Text style={styles.error}>{errors.password}</Text>
-            }
-
-           
-            <Button
-            // styles={[styles.login, styles.input]}
-                title='LOGIN'
-                color='black'
-                onPress={() => {
-                    console.log(values.password, values.email)
-                }}
-                disabled={(errors.password && touched.password) && (errors.email && touched.email) ? true : false}
-            />
-            {/* <View  style={{ height: 60}}/> */}
-            </KeyboardAvoidingView>
-
-            </View>
+            
          )}
     </Formik>
     )
 }
 
-const styles = StyleSheet.create({
-    container : {
-        flex: 1,
-        justifyContent: 'center',
-        alignContent: 'center',
-        backgroundColor: '#171C24',
-        height: 800
-    },
-    input: {
-      height: 40,
-      margin: 12,
-      borderWidth: 1,
-      padding: 10,
-      color: 'white',
-      borderColor: 'white'
-    },
-    text: {
-        color: 'white',
-        padding: 10,
-        fontWeight: 'bold'
-    },
-    login: {
-       
-        backgroundColor: 'white',
-        color: 'black',
-        
-    },
-    etb :{
-        width: 100,
-        height: 100,
-        borderRadius: 10,
-        backgroundColor: 'rgba(255, 255, 255, 0.6)',        
-        // flex: 0.25,
-        marginLeft: (Dimensions.get('screen').width - 100) / 2
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // alignSelf: 'center'
+  const matDispatchToProps = dispatch => ({
+      setUser: user => dispatch(setUserDetails(user))
+  })
 
-    },
-    etb_text : {
-        fontWeight: 'bold',
-        fontSize: 30,
-        marginLeft: 20,
-        marginTop: 30,
-        // fontFamily: 'Inter_900Black',
-        color: '#171C24'
-    },
-    error: {
-        color: 'red'
-    }
-    // ,
-    // text_input : {
-    //     flex: 0.4,
-    //     flexDirection: 'row'
-    // }
-
-  });
-  
-
-  export default Login
+  export default connect(null, matDispatchToProps)(Login)

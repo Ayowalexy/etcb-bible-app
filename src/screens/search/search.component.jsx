@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native'
 
 import { connect } from 'react-redux'
 import styles from './search.styles'
@@ -44,7 +44,6 @@ const Search = ({search, match, navigation, stateHistory}) => {
     //     } 
     // }, [filters.length])
 
-    console.log('==============================================================')
     console.log(useBook.length)
     
     // console.log(filters, 'filter')
@@ -254,10 +253,11 @@ const Search = ({search, match, navigation, stateHistory}) => {
                     <TouchableOpacity
                         onPress={() => {
                            
-                            // function res(){
+                            function res(){
                                 useBook.map(chapter => (
                                     chapter.chapters.map(matchText => (
                                         matchText.chapter_verses.filter(matchVerse => {
+                                           
                                              if(matchVerse.verse.includes(word) && filters.includes(chapter.tag)){
         
                                                  result.push({...matchVerse, 
@@ -268,6 +268,7 @@ const Search = ({search, match, navigation, stateHistory}) => {
                                                     chapter_Number: chapter.chapter_Number
                                                 })
                                              } else if (matchVerse.verse.includes(word)){
+                                                 
                                                 result.push({...matchVerse, 
                                                     chapter: matchText.chapter, 
                                                     EnglishName: chapter.EnglishName,
@@ -280,8 +281,8 @@ const Search = ({search, match, navigation, stateHistory}) => {
                                         })
                                     ))
                                 ))
-                            // }
-                            // res()
+                            }
+                            res()
                          
                             if (word){
                                 search({text: result, wordText: word})

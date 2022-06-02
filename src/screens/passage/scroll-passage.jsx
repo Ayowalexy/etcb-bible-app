@@ -14,7 +14,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 let userColorNew = 'red'
-const VerseComponent = ({verse_Number,part,msg, color = 'black', verse_color, verse, data, navigation, fontSize, fontColor, refer, heading, comment, before_verse, after_verse, GOD_SAID}) => {
+const VerseComponent = ({verse_Number,part,msg, colored, color = 'black', verse_color, verse, data, navigation, fontSize, fontColor, refer, heading, comment, before_verse, after_verse, GOD_SAID}) => {
 
     if(color && verse_color){
         userColorNew = verse_color
@@ -25,6 +25,23 @@ const VerseComponent = ({verse_Number,part,msg, color = 'black', verse_color, ve
     }
 
     console.log(color, verse_color)
+
+    let c_1 = '';
+    switch (colored) {
+        case null:
+            c_1 = part == 'OT' ? 'blue' : 'red'
+            break;
+        case 'blue':
+            c_1 = 'blue';
+            break
+        case 'red':
+            c_1 = 'red'
+            break
+    
+        default:
+            c_1 = 'black'
+            break;
+    }
     const { width } = useWindowDimensions()
     return (
         <View style={{
@@ -41,7 +58,8 @@ const VerseComponent = ({verse_Number,part,msg, color = 'black', verse_color, ve
                { verse.includes('“ ') ? 
                <Text>
                    { verse.includes('“ ') ? <Text style={{color:'black'}}>{verse.slice(0, verse.indexOf('“ '))}</Text> : null}
-                   <Text  style={{color: part === "OT" ? 'blue': 'red'}}>
+                   {/* <Text  style={{color: part === "OT"  ? 'blue': 'red'}}> */}
+                   <Text  style={{color: c_1}}>
                        {verse.includes('“ ') ? verse.slice(verse.indexOf('“ '), verse.indexOf('”')) : 
                        verse.slice(0, verse.indexOf('”'))}
                     </Text>
@@ -49,14 +67,6 @@ const VerseComponent = ({verse_Number,part,msg, color = 'black', verse_color, ve
                 </Text>
                 : verse }
                </Text>
-            {/* <Text style={[styles.chapter_verse, {fontSize: fontSize, color: fontColor}]}>{verse ? verse :
-               <Text>
-                    <Text>{before_verse}</Text>
-                    <Text style={{color: 'blue'}}> {GOD_SAID} </Text>
-                    <Text>{after_verse}</Text>
-               </Text>
-
-            }</Text> */}
         </View>
         <View  style={{
             //    flexDirection: 'row'

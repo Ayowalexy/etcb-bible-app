@@ -1,19 +1,27 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { View, Text, ScrollView, TouchableOpacity, Button, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { setCurrentBook } from '../../redux/books/books.actions';
 import { setCurrentChapter } from '../../redux/chapter/chapter.actions';
 import { setCurrentVerse } from '../../redux/verse/verse.actions'
 import DATABASE from '../../../database';
+import { Colors } from '../../assets/Colors';
+import Books from '../../../Books';
+
 
 
 
 const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
 
 
+    const [HebrewName, setHebrewName] = useState('')
     const { EnglishName, chapters, id } = currentBook
     console.log(currentBook, 'set')
 
+    useEffect(() => {
+        const book = Books.find(data => data.EnglishName ===  EnglishName)
+        setHebrewName(book.HebrewName)
+    }, [EnglishName])
     let arr = [];
     for(let i = 1; i <= chapters; i++){
         arr.push(i)
@@ -32,31 +40,48 @@ const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
     
         return(
             <ScrollView>
-                <View>
-                    <Text style={{padding: 20, fontSize: 20, fontWeight: 'bold'}}>{EnglishName}</Text>
-
-                    <Text
-                        style={{
-                            padding: 20,
-                        }}
-                    >Will you like to read the introductory notes on {EnglishName}? click the button</Text>
+                <View 
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: Dimensions.get('screen').width,
+                    }}
+                >
+                   <View style={{
+                       display: 'flex',
+                       justifyContent: 'center',
+                       alignItems: 'center',
+                   }}>
+                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>{EnglishName}</Text>
+                    <Text >{HebrewName}</Text>
+                    <Text style={{padding: 20}}>Will you like to read the introductory notes on {EnglishName}? click the button</Text>
                    <View 
                     style={{
                         width: 200,
-                        marginLeft: (Dimensions.get('window').width - 200 ) / 2
+                        borderWidth: 2,
+                        borderColor: '#E39121',
+                        // marginLeft: (Dimensions.get('window').width - 200 ) / 2
 
                     }}
                    >
                     <Button
-                            color='black'
+                            color={Colors.SECONDARY}
                             title='INTRODUCTION'
+                            style={{fontWeight: 'bold'}}
                             onPress={() => navigation.navigate('Introduction', {
                                 EnglishName: EnglishName
                             })}
                         />
                    </View>
-                    
-                        <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap'}}>
+                        <View style={{
+                            width: Dimensions.get('screen').width,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            flexWrap: 'wrap'
+                        }}>
                             {
                             arr.map(chapter_Number => {
                                 return (
@@ -71,50 +96,28 @@ const Chapters = ({ currentBook, navigation, currentChapter, currentVerse}) => {
                                                 })
                                                 navigation.navigate('Verses')
                                             }}
-                                        >
-                                            <View style={
+                                            style={
                                                 {
                                                     width: 40, 
-                                                    marginTop: 10, 
-                                                    marginLeft: 10, 
-                                                    marginRight: 10, 
-                                                    marginBottom: 10, 
+                                                    margin: 10, 
                                                     height: 40, 
-                                                    borderColor: 'black', 
-                                                    borderStyle: 'solid', 
-                                                    borderWidth: 2}}>
-                                               <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                                                    <Text>{chapter_Number}</Text>
-                                               </View>
-                                            </View>
+                                                    backgroundColor: Colors.SECONDARY_FADED,
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    borderWidth: 2,
+                                                    borderColor: '#E39121'
+                                                    }}
+                                        >
+                                                    <Text style={{fontWeight: 'bold'}}>{chapter_Number}</Text>
                                         </TouchableOpacity>    
 
                                 )
                             }) 
                             }
 
-                        </View>
-
-                        {/* <Text
-                        style={{
-                            padding: 20,
-                        }}
-                    >Click to read commentary on the book of {EnglishName}</Text>
-                   <View 
-                    style={{
-                        width: 200,
-                        marginLeft: (Dimensions.get('window').width - 200 ) / 2
-
-                    }}
-                   >
-                    <Button
-                            color='black'
-                            title='COMMENTARY'
-                            onPress={() => navigation.navigate('Commentary')}
-
-                        />
-                        </View> */}
-                        
+                        </View> 
+                    </View>                       
                 </View>
             </ScrollView>
         )

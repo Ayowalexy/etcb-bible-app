@@ -15,7 +15,7 @@ const searchReducer = (state = INITIAL_STATE, action) => {
             }
         }
 
-        case 'DELETE_SEARCH': {
+        case 'DELETE_SEARCH_': {
             return {
                 ...state,
                 text: searchUtils(state.text, action.payload)

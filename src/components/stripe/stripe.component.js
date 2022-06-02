@@ -1,15 +1,18 @@
 import React, {useState} from 'react'
-import { View, Text, StyleSheet, TextInput, Button, Alert, ActivityIndicator } from 'react-native'
-import { API_URL } from '../payment-screen/api-fetch';
+import { View, Text, StyleSheet, TextInput, Button, Alert, ActivityIndicator, TouchableOpacity} from 'react-native'
+import { API_URL, update } from '../payment-screen/api-fetch';
 import { CardField, useConfirmPayment } from '@stripe/stripe-react-native';
 import axios from 'axios'
+import { Colors } from '../../assets/Colors';
+import { setUserDetails } from '../../redux/user/user.action';
+import { connect } from 'react-redux'
 
 
-
-const StripePayout = ({amount}) => {
+const StripePayout = ({amount, setUser}) => {
 
     const [email, setEmail] = useState()
     const [cardDetails, setCardDetails] = useState()
+    const [pressed, setPressed] = useState(false)
     const { confirmPayment, loading } = useConfirmPayment()
 
     const fetchPaymentClienSecret = async () => {
@@ -29,8 +32,15 @@ const StripePayout = ({amount}) => {
         return {clientSecret, error}
     }
 
+    const handleUpdate = async (data) => {
+        const res = await update(data)
+        setUser({...res["response"]})
+        
+    } 
+
     const handlePayPress = async () => {
         if(!cardDetails?.complete || !email){
+            setPressed(false)
             Alert.alert('Please Enter A complete card details and Email')
             return
         }
@@ -42,6 +52,7 @@ const StripePayout = ({amount}) => {
             const { clientSecret, error } = await fetchPaymentClienSecret()
 
             if(error){
+                setPressed(false)
                 console.log('Unable is able to process payment')
                 Alert('Unable to process payment')
             } else {
@@ -55,7 +66,19 @@ const StripePayout = ({amount}) => {
                 if(error){
                     alert(`Payment confirmation Error: ${error.message}`)
                 } else if (paymentIntent){
+                    const started = new Date();
+                    let expires = new Date();
+                    expires.setDate(expires.getDate() + 365)
                     alert("Payment successful")
+                    setPressed(false)
+                    handleUpdate({
+                        email: email,
+                        loggedIn: true,
+                        started: `${started.toLocaleDateString()}`,
+                        expires: `${expires.toLocaleDateString()}`,
+                        subscribed: true
+                        
+                    })
                     console.log('Payment successful', paymentIntent)
                 }
             }
@@ -87,14 +110,34 @@ const StripePayout = ({amount}) => {
 
             />
             {
-                loading ? <ActivityIndicator size='small' color='black' />
-                 : 
-                 <Button 
-                    color='black'
-                    onPress={handlePayPress}
-                    title={`Donate $${amount}`}
-                    disabled={loading}
-                />
+                 <TouchableOpacity
+                    style={{
+                        width: '100%',
+                        height: 60,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: Colors.SECONDARY,
+                        borderWidth: 2,
+                        borderColor: Colors.BORDER
+                    }}
+
+                    onPress={() => {
+                        setPressed(true)
+                        handlePayPress()
+
+                    }}
+                 >
+                     {
+                         pressed
+                         ?
+                         <ActivityIndicator size='small' color={Colors.PRIMARY} />
+                         :
+                         <Text style={{color: Colors.PRIMARY, fontWeight: 'bold'}}>{`Donate $${amount}`}</Text>
+
+                     }
+                 </TouchableOpacity>
+                 
             }
            
         </View>
@@ -121,4 +164,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default StripePayout
+const mapDispatchToProps = dispatch => ({
+    setUser: user => dispatch(setUserDetails(user))
+})
+
+export default connect(null, mapDispatchToProps)(StripePayout)

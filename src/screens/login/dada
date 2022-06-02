@@ -1,0 +1,61 @@
+<Text style={styles.text}>
+                Email
+            </Text>
+
+            <View style={styles.text_input}>
+                <TextInput 
+                        placeholderTextColor='white'
+                        keyboardType='email-address'
+                        style={styles.input}
+                        placeholder='Enter Email Address'
+                        onChangeText={handleChange('email')}
+                        onBlur={handleBlur('email')}
+                        value={values.email}
+                />
+                {/* <Ionicons name={errors.email ? 'close-outline' : 'checkmark'} size={20} color='white' /> */}
+            </View>
+            {(errors.email && touched.email) &&
+            <Text style={styles.error}>{errors.email}</Text>
+            }
+                            
+            <Text style={styles.text}>
+                Password
+            </Text>
+
+
+            <View>
+                <TextInput 
+                    placeholderTextColor='white'
+                    style={styles.input}
+                    placeholder='Enter Password'
+                    onChangeText={handleChange('password')}
+                    onBlur={handleBlur('password')}
+                    value={values.password}
+                    secureTextEntry={!showpassword ? true : false}
+                />
+
+                <TouchableOpacity
+                    onPress={() => {
+                        setShowPassword(prevState => !prevState)
+                    }}
+                >
+                        {/* <Ionicons name={showpassword ? 'eye-off-outline' : 'eye-outline'} size={20} color='white' /> */}
+                </TouchableOpacity>
+            </View>
+
+            {(errors.password && touched.password) &&
+            <Text style={styles.error}>{errors.password}</Text>
+            }
+
+           
+            <Button
+            // styles={[styles.login, styles.input]}
+                title='LOGIN'
+                color='black'
+                onPress={() => {
+                    console.log(values.password, values.email)
+                }}
+                disabled={(errors.password && touched.password) && (errors.email && touched.email) ? true : false}
+            />
+            {/* <View  style={{ height: 60}}/> */}
+            {/* </KeyboardAvoidingView> */}

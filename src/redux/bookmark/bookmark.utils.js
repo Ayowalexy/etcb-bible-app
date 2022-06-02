@@ -1,18 +1,18 @@
 export const bookmarkUtils = (prevState, newState) => {
 
-
-    
-    if(prevState){
-        for(let book of prevState){
+    let useBook = prevState.filter(b => !(Object.is(null, b)))
+    useBook = useBook.filter(b => typeof b !== "undefined")
+    if(useBook){
+        for(let book of useBook){
             if(book.EnglishName === newState.EnglishName && book.chapter === newState.chapter && book.verse_number === newState.verse_number){
-               prevState.splice(prevState.indexOf(book), 1)
+               useBook.splice(useBook.indexOf(book), 1)
             }
         }
     } else {
-       return prevState
+       return useBook
     }
 
-    return prevState
+    return useBook
 }
 
 export const addBookmarkUtils = (oldState, newState) => {

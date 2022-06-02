@@ -13,13 +13,12 @@ import {
 } from 'react-native';
 
 import {
-  Colors,
   DebugInstructions,
   Header,
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-
+  
 
 import styles from './homescreen';
 
@@ -38,6 +37,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { Colors } from '../../assets/Colors';
 
 
 
@@ -78,7 +78,7 @@ export const HomeTabs = () => (
             iconName = focused ? 'md-person' : 'md-person-outline'
             iconSize = focused ?  25 : 20
           }
-          return <Ionicons name={iconName} color='#171C24' size={iconSize} />
+          return <Ionicons name={iconName} color={Colors.SECONDARY} size={iconSize} />
         }, 
         tabBarActiveTintColor: '#171C24',
         tabBarInactiveTintColor: 'gray'

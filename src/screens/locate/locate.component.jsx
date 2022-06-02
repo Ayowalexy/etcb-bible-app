@@ -59,9 +59,9 @@ export const LocateTab = () => (
         }}
        
     >
-        <Tab.Screen name='OT' component={OldTestament} />
-        <Tab.Screen name='NT' component={NewTestament} />
-        
+        <Tab.Screen name='ETB BIBLE OT' component={OldTestament} />
+        <Tab.Screen name='ETB BIBLE NT' component={NewTestament} />
+    
     </Tab.Navigator>
 )
 

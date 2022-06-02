@@ -7,6 +7,10 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 
 const Bookmarks = ({bookmark, delBookmark, navigation}) => {
     const { book } = bookmark
+    console.log(bookmark)
+    let useBook = book.filter(b => !(Object.is(null, b)))
+    useBook = useBook.filter(b => typeof b !== "undefined")
+    console.log('userbook', useBook)
   
     return (
         <ScrollView style={{flex: 1}}>
@@ -16,7 +20,8 @@ const Bookmarks = ({bookmark, delBookmark, navigation}) => {
             <View style={{marginLeft: 10, marginRight: 10}}>
               {
                  
-                   book.map((element, idx) => {
+                   useBook.map((element, idx) => {
+                       console.log('element', element)
                     return (
                         <View key={idx} style={{
                             borderBottomColor: 'black',

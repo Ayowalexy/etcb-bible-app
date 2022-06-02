@@ -1,76 +1,63 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, ScrollView, useWindowDimensions, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { setCurrentChapter } from '../../redux/chapter/chapter.actions';
 // import Books from '../../../Books';
 import { OldTestamenBooks } from '../../../Books';
+import { Colors } from '../../assets/Colors';
+import {styles} from './styles'
+import { books } from './bk'
 
 
-
-const OldTestament = ({navigation, setCurrentChapterRender}) => {
+const OldTestament = ({navigation, setCurrentChapterRender, user}) => {
 
     const { width, height } = useWindowDimensions()
-
+    const [freeBooks, setFreeBooks] = useState(["Genesis", "Jonah", "Mark", "Jude"])
+    const [faded, setFaded] = useState(false)
+    
  
     return(
         <ScrollView>
-           <View style={{flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center'}}>
-           {
-                OldTestamenBooks.map(book => {
-                    return (
-                        <TouchableOpacity
-                             key={book.id}
-                             
-                            onPress={() => {
-                                navigation.navigate('Chapters')
-                                setCurrentChapterRender({
-                                    EnglishName: book.EnglishName,
-                                    chapters: book.chapters
-                                })
-                            }}
-                        >
-                            <View key={book.id} style={width < 350 ? styles.box_second: styles.box}>
-                                    <View style={{flex: 1, justifyContent:'center', alignItems: 'center'}}><Text style={width < 350 ? styles.text_second: styles.text}>{book.EnglishName}</Text></View>
-                             </View>
-                        </TouchableOpacity>
-                    )
-                })
-            }
+           <View style={styles.PARENT}>
+                {
+                    OldTestamenBooks.map(book => {
+                            
+                        return (
+                            <TouchableOpacity
+                                style={[styles.VERSE]}
+                                key={book.id}
+                                onPress={() => {
+                                    navigation.navigate('Chapters')
+                                    setCurrentChapterRender({
+                                        EnglishName: book.EnglishName,
+                                        chapters: book.chapters
+                                    })
+                                }}
+                            >
+                                <View>
+                                    <Text style={styles.VERSE_01}>{book.EnglishName}</Text>
+                                    <Text style={styles.VERSE_02}>{book.HebrewName}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        )
+                    })
+                }
            </View>
+           
         </ScrollView>
     )
         }
 
 
-        const styles = StyleSheet.create({
-            box: {marginTop: 20,
-                 marginLeft: 20, 
-                 width: 150, 
-                 height: 50, 
-                 borderRadius: 50, 
-                 borderColor: 'black', 
-                 borderWidth: 2, 
-                 borderStyle:'solid'},
-            box_second: {
-                marginTop: 20,
-                 marginLeft: 20, 
-                 width: 100, 
-                 height: 50, 
-                 borderRadius: 50, 
-                 borderColor: 'black', 
-                 borderWidth: 2, 
-                 borderStyle:'solid'
-            }, 
-            text :{
-                fontSize: 18
-            }, text_second: {
-                fontSize: 15
-            }
-        })
+        
 
 const mapDispatchToProps = dispatch => ({
     setCurrentChapterRender: chapter => dispatch(setCurrentChapter(chapter))
 
 })
 
-export default connect(null, mapDispatchToProps)(OldTestament)
+const mapStateToProps = state => ({
+    user: state.user.currentUser
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(OldTestament)

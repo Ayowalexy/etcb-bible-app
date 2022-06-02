@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useStripe } from '@stripe/stripe-react-native';
-import {View, Text, ScrollView, Button, Alert} from 'react-native'
+import {View, Text, ScrollView, Button, Alert, TouchableOpacity, Dimensions} from 'react-native'
 import { API_URL } from '../../components/payment-screen/api-fetch';
 import PaymentScreen from '../../components/payment-screen/paymentScreen';
 import StripePayout from '../../components/stripe/stripe.component';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import { Colors } from '../../assets/Colors';
+import { connect } from 'react-redux'
+import { setData } from '../../redux/books/books.actions';
 
+const freeBooks = ["Genesis", "Jonah", "Mark", "Jude"]
 
-const Premium = ({navigation}) => {
+const Premium = ({navigation, data}) => {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false);
   const [loading, setLoadng] = useState(false);
@@ -15,8 +19,95 @@ const Premium = ({navigation}) => {
 
     return(
         <ScrollView>
+            
+            <View style={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: 'center',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignItems: 'flex-start',
+                alignContent: 'flex-start',
+                paddingTop: 50,
+                height: Dimensions.get('window').height
+            }}>
+                    <Text style={{
+                            fontSize: 20,
+                            margin: 20
+                        }}>
+                            Preview Some of End time Bible Books translation
+                        </Text>
+                    {
+                    [
+                        {
+                            EnglishName: 'Genesis',
+                            HebrewName: 'Bereshit',
+                            chapters: 50,
+                            id: 1,
+                            tags: ['Old Testament']
+                        },
+                        {
+                            EnglishName: 'Jonah',
+                            HebrewName: 'Yonah',
+                            chapters: 4,
+                            id: 32,
+                            tags: ['Old Testament']
+                        },
+                        {
+                            EnglishName: 'Mark',
+                            HebrewName: 'Marc',
+                            chapters: 16,
+                            id: 41,
+                            tags: ['New Testament', 'Gospels']
+                        },
+                        {
+                            EnglishName: 'Jude',
+                            HebrewName: 'Yehuda',
+                            chapters: 1,
+                            id: 65,
+                            tags: ['New Testament', 'Epistles']
+                    
+                        },
+                    ].map((book, idx) => {
+                        return (
+                            <TouchableOpacity
+                            onPress={() => {
+                                data({...book, currentChapter: 1, salt: true, verse: 1})
+                                navigation.navigate('Passage')
+
+                            }}
+                            key={idx}
+                                style={{
+                                    display: 'flex',
+                                    width: '100%',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    width: 100,
+                                    height: 100,
+                                    margin: 20,
+                                    borderRadius: 10,
+                                    backgroundColor: Colors.SECONDARY,
+                                    borderWidth: 3,
+                                    borderColor: Colors.BORDER
+                                }}
+                            
+                            >
+                                <Text style={{
+                                    fontWeight: 'bold',
+                                    fontSize: 17,
+                                    color: Colors.PRIMARY
+                                }}>{book.EnglishName}</Text>
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+            </View>
+
+        
+
+
            
-            <View style={{marginBottom: 20}}>
+            {/* <View style={{marginBottom: 20}}>
                 <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                     <Text style={{fontWeight: 'bold', fontSize: 30}}>ETB Bible Features</Text>
                 </View>
@@ -201,9 +292,12 @@ const Premium = ({navigation}) => {
                     <StripePayout amount={30} />
                 </StripeProvider>
                 
-            </View>
+            </View> */}
         </ScrollView>
     )
 }
+const mapDispatchToProps = dispatch => ({
+    data: book => dispatch(setData(book))
+})
 
-export default Premium
+export default connect(null, mapDispatchToProps)(Premium)
