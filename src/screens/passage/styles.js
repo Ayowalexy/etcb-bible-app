@@ -26,8 +26,17 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: "center", 
         fontSize: 14, 
-        padding: 10, 
-        marginBottom: 5
+        paddingTop: 10,
+        paddingLeft: 10, 
+        width:Dimensions.get('window').width,
+        marginBottom: 0,
+        marginLeft:-10,
+        borderTopWidth: 1,
+        borderTopColor: '#000',
+        marginTop: 10,
+        textAlign: 'left',
+        alignSelf:'flex-start'
+        
     }, TEXT_BOX: {
         display: 'flex', 
         justifyContent:'center', 

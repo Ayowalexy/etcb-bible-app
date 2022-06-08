@@ -399,8 +399,12 @@ const PassageFlat = ({navigation, NextBook, fontColor, fontSize, hightlight, boo
                                     const part= currentBook.part || 'OT';
                                     const color = currentBook.color;
                                     const verse_color = item.verse_color || Colors.DEFAULT;
+                                    const colored=item.colored || null;
+
                                     console.log(verse_color, index)
                                     let useColor;
+
+
                                     
                                     if(part === "OT") {
                                         useColor = 'blue'
@@ -410,6 +414,25 @@ const PassageFlat = ({navigation, NextBook, fontColor, fontSize, hightlight, boo
 
                                     if(verse_color == 'red' || verse_color == 'blue'){
                                         useColor = verse_color
+                                    }
+
+                                    
+                                    
+                                    let c_1 = '';
+                                    switch (colored) {
+                                        case null:
+                                            c_1 = part == 'OT' ? 'blue' : 'red'
+                                            break;
+                                        case 'blue':
+                                            c_1 = 'blue';
+                                            break
+                                        case 'red':
+                                            c_1 = 'red'
+                                            break
+                                    
+                                        default:
+                                            c_1 = 'black'
+                                            break;
                                     }
                         return (
                             <TouchableOpacity
@@ -450,18 +473,19 @@ const PassageFlat = ({navigation, NextBook, fontColor, fontSize, hightlight, boo
                                                             { 
                                                                 item.header !== null || item.header === "" 
                                                                     ? 
-                                                                    <Text style={styles.HEADER_1}>{item.header}</Text>
+                                                                    <Text style={styles.HEADER_1}>{item.header}{"\n"}</Text>
                                                                     : 
                                                                     null
                                                             }
-                                                            { 
+                                                            
+                                                        </Text>
+                                                        { 
                                                                 msg !== null  
                                                                     ? 
                                                                     <Text style={styles.MSG}>{item.msg}</Text> 
                                                                     : 
                                                                     null
                                                             }
-                                                        </Text>
                                                     </View>
 
                                                 <View 
@@ -511,7 +535,7 @@ const PassageFlat = ({navigation, NextBook, fontColor, fontSize, hightlight, boo
                                                                                 }
                                                                                     <Text  
                                                                                         style={{
-                                                                                            color: useColor
+                                                                                            color: c_1
                                                                                             // color: part === "OT" ? 'blue': 'red'
                                                                                             }}
                                                                                     >

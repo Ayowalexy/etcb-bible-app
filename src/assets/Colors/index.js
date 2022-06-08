@@ -1,5 +1,5 @@
 export const Colors = {
-    SECONDARY: '#483636',
+    SECONDARY: 'rgba(72,54,54,1)',
     PRIMARY: '#FFF',
     SECONDARY_FADED: 'rgba(72,54,54, 0.2)',
     DEFAULT: '#000',

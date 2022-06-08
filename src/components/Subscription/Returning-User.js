@@ -1,5 +1,6 @@
 import React, { useState} from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, ActivityIndicator, Alert } from 'react-native'
+import { Colors } from '../../assets/Colors'
 
 const ReturningUser = () => {
     const [amount, setAmount] = useState('')
@@ -15,7 +16,7 @@ const ReturningUser = () => {
                 <TouchableOpacity
                 onPress={() => setText('One Time')}
                  style={[styles.border_1, {
-                    backgroundColor: text === 'One Time' ? 'rgba(20, 180, 230, 0.9)': 'rgba(20, 180, 230, 0.2)', 
+                    backgroundColor: text === 'One Time' ? Colors.SECONDARY: Colors.SECONDARY_FADED,  
                  }]}>
                     <Text style={[styles.text, {
                     }]}>One Time</Text>
@@ -23,7 +24,7 @@ const ReturningUser = () => {
                 <TouchableOpacity
                 onPress={() => setText('Monthly')}
                  style={[styles.border_2, {
-                    backgroundColor: text === 'Monthly' ? 'rgba(20, 180, 230, 0.9)': 'rgba(20, 180, 230, 0.2)', 
+                    backgroundColor: text === 'Monthly' ? Colors.SECONDARY: Colors.SECONDARY_FADED,  
                  }]}>
                     <Text style={styles.text}>Monthly</Text>
                 </TouchableOpacity>
@@ -34,19 +35,19 @@ const ReturningUser = () => {
                 <TouchableOpacity 
                     onPress={() => setPrice('$25')}
                     style={[styles.box, {
-                        backgroundColor: price === '$25' ? 'rgba(20, 180, 230, 0.9)': 'rgba(20, 180, 230, 0.2)', 
+                        backgroundColor: price === '$25' ? Colors.SECONDARY: Colors.SECONDARY_FADED, 
                 }]}>
                     <Text style={styles.text}>$25</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => setPrice('$50')}
                     style={[styles.box, {
-                        backgroundColor: price === '$50' ? 'rgba(20, 180, 230, 0.9)': 'rgba(20, 180, 230, 0.2)', 
+                        backgroundColor: price === '$50' ? Colors.SECONDARY: Colors.SECONDARY_FADED, 
                 }]}>
                     <Text style={styles.text}>$50</Text>
                 </TouchableOpacity >
                 <TouchableOpacity  onPress={() => setPrice('$100')}
                     style={[styles.box, {
-                        backgroundColor: price === '$100' ? 'rgba(20, 180, 230, 0.9)': 'rgba(20, 180, 230, 0.2)', 
+                        backgroundColor: price === '$100' ? Colors.SECONDARY: Colors.SECONDARY_FADED,  
                 }]}>
                     <Text style={styles.text}>$100</Text>
                 </TouchableOpacity>
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(20, 180, 230, 0.2)',
+        backgroundColor: Colors.SECONDARY_FADED,
         marginRight: 10,
         marginTop: 10
     },
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         bottom: 20,
         marginTop: 160,
-        backgroundColor: 'rgba(20, 180, 230, 0.9)'       
+        backgroundColor: Colors.SECONDARY     
     }
     
     

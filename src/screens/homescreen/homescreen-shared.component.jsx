@@ -194,7 +194,9 @@ import ShareVerse from '../../components/share/share-verse.component';
                         borderWidth: 3,
                         borderColor: '#E39121'
                     }}>
-                        <Text style={styles.PREVIEW}>SPONSOR</Text>
+                        <Text style={styles.PREVIEW}>SPONSOR {"\n"}<Text style={{
+                            fontSize:15
+                        }}>A Bible</Text></Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                     onPress={() => setDailyModal(!dailyModal)}

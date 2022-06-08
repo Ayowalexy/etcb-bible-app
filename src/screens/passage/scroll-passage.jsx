@@ -15,7 +15,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 let userColorNew = 'red'
 const VerseComponent = ({verse_Number,part,msg, colored, color = 'black', verse_color, verse, data, navigation, fontSize, fontColor, refer, heading, comment, before_verse, after_verse, GOD_SAID}) => {
-
+    console.log('coloredS')
     if(color && verse_color){
         userColorNew = verse_color
     } else if (verse_color || color){
@@ -24,7 +24,7 @@ const VerseComponent = ({verse_Number,part,msg, colored, color = 'black', verse_
         userColorNew = 'black'
     }
 
-    console.log(color, verse_color)
+    // console.log(color, verse_color)
 
     let c_1 = '';
     switch (colored) {
@@ -42,6 +42,8 @@ const VerseComponent = ({verse_Number,part,msg, colored, color = 'black', verse_
             c_1 = 'black'
             break;
     }
+
+    
     const { width } = useWindowDimensions()
     return (
         <View style={{

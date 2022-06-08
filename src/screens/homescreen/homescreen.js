@@ -75,7 +75,8 @@ PARENT: {
 PREVIEW: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.PRIMARY
+    color: Colors.PRIMARY,
+    textAlign:'center'
 },
     container: {
       flex: 1,
